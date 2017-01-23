@@ -1,8 +1,7 @@
 package com.hhsfbla.launch;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,11 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity
+public class NavDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
@@ -47,9 +44,10 @@ public class MainActivity extends AppCompatActivity
 
 
     }
-    public void header_clicked(View v){
-        Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+    public void header_clicked(View v) {
+//        Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+
     }
     @Override
     public void onBackPressed() {
@@ -89,13 +87,15 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-//        if (id == R.id.nav_head) {
-//
-//        } else if (id == R.id.nav_home) {
-//
-//        }
+        if (id == R.id.nav_head) {
+
+        } else if (id == R.id.nav_buy) {
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, new BuyPageFragment()).commit();
+        }
 // else if (id == R.id.nav_slideshow) {
-//
+
 //        } else if (id == R.id.nav_manage) {
 //
 //        } else if (id == R.id.nav_share) {
