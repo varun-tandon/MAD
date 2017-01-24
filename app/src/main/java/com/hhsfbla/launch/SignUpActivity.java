@@ -58,29 +58,33 @@ public class SignUpActivity extends AppCompatActivity {
 
         signupButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mAuth.createUserWithEmailAndPassword(emailInput.getText().toString(), passwordInput.getText().toString())
-                        .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
+                if (fullnameInput.getText().length() > 0 && emailInput.getText().length() > 0 && passwordInput.length() > 0) {
+                    mAuth.createUserWithEmailAndPassword(emailInput.getText().toString(), passwordInput.getText().toString())
+                            .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
 
-                                // If sign in fails, display a message to the user. If sign in succeeds
-                                // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
-                                if (!task.isSuccessful()) {
-                                    Toast.makeText(SignUpActivity.this, "Sign up failed.",
-                                            Toast.LENGTH_SHORT).show();
+                                    // If sign in fails, display a message to the user. If sign in succeeds
+                                    // the auth state listener will be notified and logic to handle the
+                                    // signed in user can be handled in the listener.
+                                    if (!task.isSuccessful()) {
+                                        Toast.makeText(SignUpActivity.this, "Sign up failed.",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                    else {
+                                        FirebaseAuth.getInstance().getCurrentUser().updateProfile(new UserProfileChangeRequest.Builder()
+                                                .setDisplayName(fullnameInput.getText().toString()).build());
+//                                        ((TextView) findViewById(R.id.nav_header_displayname)).setText(fullnameInput.getText().toString());
+//                                        ((TextView) findViewById(R.id.nav_header_email)).setText(emailInput.getText().toString());
+                                        Intent gotoMainIntent = new Intent(SignUpActivity.this, NavDrawerActivity.class);
+                                        SignUpActivity.this.startActivity(gotoMainIntent);
+                                    }
                                 }
-                                else {
-                                    FirebaseAuth.getInstance().getCurrentUser().updateProfile(new UserProfileChangeRequest.Builder()
-                                            .setDisplayName(fullnameInput.getText().toString()).build());
-                                    ((TextView) findViewById(R.id.nav_header_displayname)).setText(fullnameInput.getText().toString());
-                                    ((TextView) findViewById(R.id.nav_header_email)).setText(emailInput.getText().toString());
-                                    Intent gotoMainIntent = new Intent(SignUpActivity.this, NavDrawerActivity.class);
-                                    SignUpActivity.this.startActivity(gotoMainIntent);
-                                }
-                            }
-                        });
+                            });
+                } else {
+                    Toast.makeText(SignUpActivity.this, "Fill all fields", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

@@ -16,7 +16,7 @@ public class BuyPageFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        accountView = inflater.inflate(R.layout.buy_page_layout, container, false);
+        accountView = inflater.inflate(R.layout.activity_buy_page, container, false);
         return accountView;
     }
 }
