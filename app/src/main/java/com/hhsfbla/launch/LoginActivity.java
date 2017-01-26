@@ -70,6 +70,8 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                     else {
                                         Intent gotoMainIntent = new Intent(LoginActivity.this, NavDrawerActivity.class);
+
+
                                         LoginActivity.this.startActivity(gotoMainIntent);
                                     }
                                 }

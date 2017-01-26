@@ -18,7 +18,11 @@ android {
         }
     }
 }
-
+repositories {
+    maven {
+        url "https://jitpack.io"
+    }
+}
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -31,6 +35,7 @@ dependencies {
     compile 'com.android.support:design:24.2.1'
     compile 'com.google.firebase:firebase-database:9.6.1'
     compile 'com.google.firebase:firebase-auth:9.6.1'
+    compile 'com.github.sayyam:carouselview:ba1beb2415'
     testCompile 'junit:junit:4.12'
 }
 

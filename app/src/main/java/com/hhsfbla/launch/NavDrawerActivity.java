@@ -2,6 +2,7 @@ package com.hhsfbla.launch;
 
 import android.os.Bundle;
 import android.app.FragmentManager;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,7 +24,9 @@ public class NavDrawerActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, new LaunchHomePageFragment()).commit();
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -50,8 +53,8 @@ public class NavDrawerActivity extends AppCompatActivity
 
     }
     public void header_clicked(View v) {
-//        Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
+        Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
 
     }
     @Override
@@ -106,9 +109,12 @@ public class NavDrawerActivity extends AppCompatActivity
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, new BuyPageFragment()).commit();
         }
-// else if (id == R.id.nav_slideshow) {
-
-//        } else if (id == R.id.nav_manage) {
+            else if (id == R.id.nav_home) {
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, new LaunchHomePageFragment()).commit();
+        }
+//        else if (id == R.id.nav_manage) {
 //
 //        } else if (id == R.id.nav_share) {
 //
