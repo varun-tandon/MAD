@@ -104,15 +104,14 @@ public class NavDrawerActivity extends AppCompatActivity
 
         if (id == R.id.nav_head) {
 
-        } else if (id == R.id.nav_buy) {
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, new BuyPageFragment()).commit();
         }
             else if (id == R.id.nav_home) {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, new LaunchHomePageFragment()).commit();
+        } else if (id == R.id.nav_fundraisers) {
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, new YourFundraisersPageFragment()).commit();
         }
 //        else if (id == R.id.nav_manage) {
 //

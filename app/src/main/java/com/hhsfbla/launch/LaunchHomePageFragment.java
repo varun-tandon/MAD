@@ -19,7 +19,7 @@ public class LaunchHomePageFragment extends Fragment {
     private View launchHomePageView;
     private CarouselView carouselView;
 
-    private int[] sampleImages = { R.drawable.c, R.drawable.c, R.drawable.c};
+    private int[] sampleImages = { R.drawable.button_style, R.drawable.button_style, R.drawable.button_style};
 
     private ImageListener imageListener = new ImageListener() {
         @Override
