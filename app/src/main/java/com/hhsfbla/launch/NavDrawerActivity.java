@@ -1,5 +1,6 @@
 package com.hhsfbla.launch;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.FragmentManager;
 import android.support.design.widget.Snackbar;
@@ -21,9 +22,19 @@ import com.google.firebase.auth.FirebaseUser;
 public class NavDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static String userID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (getIntent() != null) {
+            Intent temp = getIntent();
+            if (temp.hasExtra("id")) {
+                userID = temp.getStringExtra("id");
+            }
+        }
+
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.content_frame, new LaunchHomePageFragment()).commit();
