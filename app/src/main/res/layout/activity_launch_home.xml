@@ -18,4 +18,42 @@
         app:strokeColor="#FF777777"
         app:strokeWidth="1dp"
         android:layout_weight="0.08" />
+
+    <TextView
+        android:text="Campaign Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/campaign_title_textview"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textSize="30sp"
+        android:layout_marginLeft="3dp"/>
+
+    <TextView
+        android:text="Nonprofit Organization Name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/nonprofit_org_name_textview"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_marginLeft="3dp"/>
+
+    <TextView
+        android:text="Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum efficitur mattis eros, at eleifend nibh imperdiet finibus. Mauris et est id ante rutrum consectetur nec nec dui. Sed nisl ex, aliquet eget faucibus vitae, placerat id lacus. \nLearn More: https://google.com"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:layout_weight="0.18"
+        android:layout_marginLeft="3dp"
+        android:autoLink="web"/>
+
+    <!--<com.hhsfbla.launch.TextViewExpandableAnimation-->
+        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+        <!--android:id="@+id/tv_expand"-->
+        <!--android:layout_width="367dp"-->
+        <!--android:layout_height="122dp"-->
+        <!--app:tvea_expandLines="3"-->
+        <!--app:tvea_textContentColor="@color/color_gray_light_content_text"-->
+        <!--app:tvea_textContentSize="@dimen/sp_txt_size_content"-->
+        <!--app:tvea_textExpand="@string/expand"-->
+        <!--app:tvea_textShrink="@string/shrink"-->
+        <!--app:tvea_textStateColor="#2ecc71" />-->
 </LinearLayout>

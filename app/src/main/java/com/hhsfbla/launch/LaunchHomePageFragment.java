@@ -34,6 +34,8 @@ public class LaunchHomePageFragment extends Fragment {
         carouselView.setPageCount(sampleImages.length);
 
         carouselView.setImageListener(imageListener);
+//        TextViewExpandableAnimation tvExpand = (TextViewExpandableAnimation) launchHomePageView.findViewById(R.id.tv_expand);
+//        tvExpand.setText("Description: Lorem jhafldsfhl ash kfhlajkd hfl k ajsh lfhaslkh fashd khslkfhkjsjdhfhskjhfkhdhfh hf hdk fdh kh jkhfdjkhkfhdk j  jdh kjdhkdhkfj hkdj hkjh dhfkjdhk jfhk hkjh hdhkjdh khkdhkjfhdjk dkfhkd fk jfhdjhkhkjh hd kh fkhfkj ipsum dolor sit amet, consectetur adipiscing elit. Proin felis mi, dapibus eget quam pharetra, tristique auctor elit. Proin non mollis sapien, eu maximus sem. Vestibulum aliquet pellentesque suscipit. Phasellus venenatis leo vitae massa mollis, sodales commodo massa aliquet. Aliquam malesuada lectus turpis, at consequat dui cursus at. ");
         return launchHomePageView;
     }
 }
