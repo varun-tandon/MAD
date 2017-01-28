@@ -70,8 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                     else {
                                         Intent gotoMainIntent = new Intent(LoginActivity.this, NavDrawerActivity.class);
-
-
+                                        gotoMainIntent.putExtra("id", task.getResult().getUser().getUid());
                                         LoginActivity.this.startActivity(gotoMainIntent);
                                     }
                                 }

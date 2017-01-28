@@ -6,11 +6,8 @@
             android:id="@+id/nav_home"
             android:title="Launch Progress" />
         <item
-            android:id="@+id/nav_buy"
-            android:title="Browse" />
-        <item
-            android:id="@+id/nav_sell"
-            android:title="Sell" />
+            android:id="@+id/nav_fundraisers"
+            android:title="Your Fundraisers" />
         <item
             android:id="@+id/nav_donate"
         android:title="Donate" />
