@@ -36,6 +36,7 @@ dependencies {
     compile 'com.google.firebase:firebase-database:9.6.1'
     compile 'com.google.firebase:firebase-auth:9.6.1'
     compile 'com.github.sayyam:carouselview:ba1beb2415'
+    compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
     testCompile 'junit:junit:4.12'
 }
 

@@ -10,14 +10,13 @@
     <com.synnapps.carouselview.CarouselView
         android:id="@+id/carouselView"
         android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_height="189dp"
         app:fillColor="#FFFFFFFF"
         app:pageColor="#00000000"
         app:radius="6dp"
         app:slideInterval="3000"
         app:strokeColor="#FF777777"
-        app:strokeWidth="1dp"
-        android:layout_weight="0.08" />
+        app:strokeWidth="1dp" />
 
     <TextView
         android:text="Campaign Title"
@@ -37,13 +36,82 @@
         android:layout_marginLeft="3dp"/>
 
     <TextView
-        android:text="Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum efficitur mattis eros, at eleifend nibh imperdiet finibus. Mauris et est id ante rutrum consectetur nec nec dui. Sed nisl ex, aliquet eget faucibus vitae, placerat id lacus. \nLearn More: https://google.com"
+        android:text="@string/home_page_description_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:layout_weight="0.18"
+        android:id="@+id/homepage_campaign_descrption"
         android:layout_marginLeft="3dp"
-        android:autoLink="web"/>
+        />
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:autoLink="web"-->
+        <!--android:"@+id/campaign p"/>-->
+    <TextView
+        android:text="Campaign Progress:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"/>
+    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        app:rcProgress="29.0"
+        app:rcMax="100.0"
+        app:rcRadius="13dp"
+        app:rcBackgroundPadding="1dp"
+        app:rcReverse="false"
+        app:rcProgressColor="#3498db"
+        app:rcBackgroundColor="#bdc3c7" />
+
+    <TextView
+        android:text="$2,900 of $10,000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress_text"
+        android:textAlignment="center"
+        android:textSize="14sp"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        >
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/ic_shopping_cart"
+            android:id="@+id/imageButton4"
+            android:scaleType="fitCenter"
+            android:background="?attr/selectableItemBackground"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/ic_donation"
+            android:id="@+id/imageButton5"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:background="?attr/selectableItemBackground"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/ic_fair_stand"
+            android:id="@+id/imageButton6"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:background="?attr/selectableItemBackground"/>
+    </LinearLayout>
+
 
     <!--<com.hhsfbla.launch.TextViewExpandableAnimation-->
         <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->

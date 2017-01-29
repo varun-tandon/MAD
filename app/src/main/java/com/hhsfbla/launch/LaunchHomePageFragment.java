@@ -3,10 +3,12 @@ package com.hhsfbla.launch;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
@@ -34,6 +36,9 @@ public class LaunchHomePageFragment extends Fragment {
         carouselView.setPageCount(sampleImages.length);
 
         carouselView.setImageListener(imageListener);
+        //make <a> in the textview clickable
+        ((TextView) launchHomePageView.findViewById(R.id.homepage_campaign_descrption)).setMovementMethod(LinkMovementMethod.getInstance());
+
 //        TextViewExpandableAnimation tvExpand = (TextViewExpandableAnimation) launchHomePageView.findViewById(R.id.tv_expand);
 //        tvExpand.setText("Description: Lorem jhafldsfhl ash kfhlajkd hfl k ajsh lfhaslkh fashd khslkfhkjsjdhfhskjhfkhdhfh hf hdk fdh kh jkhfdjkhkfhdk j  jdh kjdhkdhkfj hkdj hkjh dhfkjdhk jfhk hkjh hdhkjdh khkdhkjfhdjk dkfhkd fk jfhdjhkhkjh hd kh fkhfkj ipsum dolor sit amet, consectetur adipiscing elit. Proin felis mi, dapibus eget quam pharetra, tristique auctor elit. Proin non mollis sapien, eu maximus sem. Vestibulum aliquet pellentesque suscipit. Phasellus venenatis leo vitae massa mollis, sodales commodo massa aliquet. Aliquam malesuada lectus turpis, at consequat dui cursus at. ");
         return launchHomePageView;
