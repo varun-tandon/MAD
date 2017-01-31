@@ -39,6 +39,10 @@
         <activity
             android:name=".CreateFundraiserActivity"
             android:label="@string/title_activity_create_fundraiser"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".FinishCreateFundraiserActivity"
+            android:label="@string/title_activity_finish_create_fundraiser"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
