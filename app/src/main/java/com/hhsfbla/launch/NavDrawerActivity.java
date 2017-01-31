@@ -124,8 +124,10 @@ public class NavDrawerActivity extends AppCompatActivity
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.content_frame, new YourFundraisersPageFragment()).commit();
         }
-//        else if (id == R.id.nav_manage) {
-//
+        else if (id == R.id.nav_launch_fundraiser) {
+            Intent launchFundraiserIntent = new Intent(NavDrawerActivity.this, CreateFundraiserActivity.class);
+            NavDrawerActivity.this.startActivity(launchFundraiserIntent);
+        }
 //        } else if (id == R.id.nav_share) {
 //
 //        } else if (id == R.id.nav_send) {

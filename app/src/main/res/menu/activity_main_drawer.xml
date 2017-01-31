@@ -3,6 +3,9 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_launch_fundraiser"
+            android:title="Launch Fundraiser" />
+        <item
             android:id="@+id/nav_home"
             android:title="Launch Progress" />
         <item
@@ -10,7 +13,7 @@
             android:title="Your Fundraisers" />
         <item
             android:id="@+id/nav_donate"
-        android:title="Donate" />
+            android:title="Donate" />
         <!--<item-->
             <!--android:id="@+id/nav_donate"-->
             <!--android:title="Donate" />-->
