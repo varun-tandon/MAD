@@ -1,5 +1,6 @@
 package com.hhsfbla.launch;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -14,6 +15,8 @@ public class Fundraiser {
     protected String deadline;
     protected String description;
 
+    protected ArrayList<Item> items;
+
     public Fundraiser(String uid, String organizationName, String purpose, int goal, String deadline,
                       String description) {
         this.uid = uid;
@@ -22,5 +25,11 @@ public class Fundraiser {
         this.goal = goal;
         this.deadline = deadline;
         this.description = description;
+
+        items = new ArrayList<Item>();
+    }
+
+    public void addItem(Item i) {
+        items.add(i);
     }
 }

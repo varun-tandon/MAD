@@ -31,7 +31,7 @@
     <string name="tips_short">Hello there,i am a short text for test</string>
     <string name="go_to_normal_mode">go to normal mode</string>
     <string name="go_to_recycler_view_mode">go to recycler view mode</string>
-    <string name="home_page_description_text">Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum efficitur mattis eros, at eleifend nibh imperdiet finibus. Mauris et est id ante rutrum consectetur nec nec dui. Sed nisl ex, aliquet eget faucibus vitae, placerat id lacus. <a href="http://google.com">Learn More</a></string>
+    <string name="home_page_description_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum efficitur mattis eros, at eleifend nibh imperdiet finibus. Mauris et est id ante rutrum consectetur nec nec dui.</string>
     <string name="title_activity_create_fundraiser">CreateFundraiserActivity</string>
 
     <!-- TODO: Remove or change this placeholder text -->

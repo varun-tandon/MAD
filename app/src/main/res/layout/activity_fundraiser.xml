@@ -30,7 +30,7 @@
         android:textSize="30dp"/>
 
     <TextView
-        android:text="Homestead FBLA"
+         android:text="Homestead FBLA"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/fundraiser_organizer_name"
