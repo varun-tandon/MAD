@@ -3,8 +3,10 @@ package com.hhsfbla.launch;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,13 +19,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import static android.R.attr.bitmap;
 import static android.R.id.message;
 import static com.hhsfbla.launch.R.id.imageView;
 
@@ -31,6 +40,8 @@ public class FinishCreateFundraiserActivity extends AppCompatActivity {
 
     final static int SELECT_PHOTO = 1;
     private ImageView imagePreview;
+    private Bitmap imageBitmap;
+    private StorageReference storageRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +52,7 @@ public class FinishCreateFundraiserActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        storageRef = FirebaseStorage.getInstance().getReference();
         imagePreview = (ImageView) findViewById(R.id.imagePreview);
 
         Button chooseImageButton = (Button) findViewById(R.id.chooseImageButton);
@@ -65,9 +77,33 @@ public class FinishCreateFundraiserActivity extends AppCompatActivity {
                     Bundle data = FinishCreateFundraiserActivity.this.getIntent().getExtras();
                     Fundraiser fundraiser = new Fundraiser(FirebaseAuth.getInstance().getCurrentUser().getUid(),
                             data.getString("organizationName"), data.getString("purpose"),
-                            data.getInt("goal"), data.getString("deadline"), description);
+                            data.getInt("goal"), data.getString("deadline"), description, imageBitmap != null ? true : false);
                     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                    database.child("fundraisers").push().setValue(fundraiser);
+                    DatabaseReference newRef = database.child("fundraisers").push();
+                    newRef.setValue(fundraiser);
+
+                    StorageReference imageRef = storageRef.child("fundraisers/" + newRef.getKey() + ".jpg");
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    imageBitmap = ((BitmapDrawable)imagePreview.getDrawable()).getBitmap();
+                    imageBitmap.compress(Bitmap.CompressFormat.JPEG, 10, baos);
+                    byte[] imgData = baos.toByteArray();
+                    UploadTask uploadTask = imageRef.putBytes(imgData);
+                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                            Toast.makeText(FinishCreateFundraiserActivity.this, "Image upload failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                            Toast.makeText(FinishCreateFundraiserActivity.this, "Image Uploaded", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    Toast.makeText(FinishCreateFundraiserActivity.this, "Fundraiser created", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
@@ -84,6 +120,8 @@ public class FinishCreateFundraiserActivity extends AppCompatActivity {
                         final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                         final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                         imagePreview.setImageBitmap(selectedImage);
+                        imageBitmap = BitmapFactory.decodeStream(imageStream);
+                        Toast.makeText(FinishCreateFundraiserActivity.this, "Image selected" + (imagePreview != null), Toast.LENGTH_SHORT).show();
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
