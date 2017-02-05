@@ -6,14 +6,19 @@ package com.hhsfbla.launch;
 
 public class Item {
 
+    protected String uid;
+    protected String fundraiserID;
     protected String name;
     protected double price;
-    protected int stock;
+    protected String condition;
+    protected String description;
 
-    public Item(String name, double price, int stock) {
+    public Item(String uid, String fundraiserID, String name, double price, String condition, String description) {
+        this.uid = uid;
+        this.fundraiserID = fundraiserID;
         this.name = name;
         this.price = price;
-        this.stock = stock;
+        this.condition = condition;
+        this.description = description;
     }
-
 }
