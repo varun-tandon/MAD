@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -63,11 +64,7 @@ public class NavDrawerActivity extends AppCompatActivity
 
 
     }
-    public void header_clicked(View v) {
-        Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
 
-    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -113,7 +110,10 @@ public class NavDrawerActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_head) {
+        if (id == R.id.nav_account_settings) {
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, new AccountViewPageFragment()).commit();
 
         }
             else if (id == R.id.nav_home) {

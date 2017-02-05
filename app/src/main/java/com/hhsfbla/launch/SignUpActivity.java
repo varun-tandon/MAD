@@ -78,10 +78,11 @@ public class SignUpActivity extends AppCompatActivity {
                                     }
                                     else {
                                         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                                        database.child("users").child(task.getResult().getUser().getUid()).child("full_name").setValue(fullnameInput.getText().toString());
+                                       database.child("users").child(task.getResult().getUser().getUid()).child("full_name").setValue(fullnameInput.getText().toString());
                                         database.child("users").child(task.getResult().getUser().getUid()).child("email").setValue(emailInput.getText().toString());
                                         database.child("users").child(task.getResult().getUser().getUid()).child("password").setValue(passwordInput.getText().toString());
                                         database.child("users").child(task.getResult().getUser().getUid()).child("user_fundraisers").setValue(new ArrayList<String>());
+//                                        database.child("fish").setValue("Fish");
 //                                        ((TextView) findViewById(R.id.nav_header_displayname)).setText(fullnameInput.getText().toString());
 //                                        ((TextView) findViewById(R.id.nav_header_email)).setText(emailInput.getText().toString());
                                         Intent gotoMainIntent = new Intent(SignUpActivity.this, NavDrawerActivity.class);

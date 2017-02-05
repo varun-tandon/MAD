@@ -10,13 +10,13 @@
     <com.synnapps.carouselview.CarouselView
         android:id="@+id/carouselView"
         android:layout_width="match_parent"
-        android:layout_height="189dp"
+        android:layout_height="200dp"
         app:fillColor="#FFFFFFFF"
         app:pageColor="#00000000"
         app:radius="6dp"
         app:slideInterval="3000"
         app:strokeColor="#FF777777"
-        app:strokeWidth="1dp" />
+        app:strokeWidth="1dp"/>
 
     <TextView
         android:text="Campaign Title"
@@ -76,7 +76,14 @@
         android:id="@+id/progress_text"
         android:textAlignment="center"
         android:textSize="14sp"/>
-
+    <TextView
+        android:text="Contribute:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+       style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="10dp"/>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -87,6 +94,7 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+
             app:srcCompat="@drawable/ic_shopping_cart"
             android:id="@+id/imageButton4"
             android:scaleType="fitCenter"
