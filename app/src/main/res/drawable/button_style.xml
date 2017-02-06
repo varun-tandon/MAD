@@ -8,7 +8,7 @@
     <stroke android:width="0dp" android:color="#ddd" />
 
     <!-- Round Corners -->
-    <corners android:radius="0dp" />
+    <corners android:radius="6dp" />
 
 
 </shape>

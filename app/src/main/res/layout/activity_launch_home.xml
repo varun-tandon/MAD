@@ -32,7 +32,7 @@
                 android:layout_height="180dp"
                 app:fillColor="#FFFFFFFF"
                 app:pageColor="#00000000"
-                app:radius="6dp"
+                app:radius="0dp"
                 app:slideInterval="3000"
                 app:strokeColor="#FF777777"
                 app:strokeWidth="1dp" />
@@ -74,7 +74,7 @@
                     android:text="@string/home_page_description_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView16"
+                    android:id="@+id/homepage_campaign_descrption"
                     android:layout_marginTop="7dp"
                     android:layout_weight="0.32" />
 
