@@ -57,7 +57,7 @@ public class TitlescreenActivity extends AppCompatActivity {
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     420);
         }
-        File f = new File(getString(R.string.save_location));
+        File f = new File("/sdcard/saveUserData.bin");
         if(f.exists()){
             UsernameAndPasswordStorage storage = new UsernameAndPasswordStorage();
             try {

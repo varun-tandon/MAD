@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                                         UsernameAndPasswordStorage thisUser = new UsernameAndPasswordStorage();
                                         thisUser.setUsername(emailInput.getText().toString());
                                         thisUser.setPassword(passwordInput.getText().toString());
-                                        thisUser.storeCredentials(getString(R.string.save_location));
+                                        thisUser.storeCredentials();
                                         Intent gotoMainIntent = new Intent(LoginActivity.this, NavDrawerActivity.class);
                                         gotoMainIntent.putExtra("id", task.getResult().getUser().getUid());
                                         LoginActivity.this.startActivity(gotoMainIntent);

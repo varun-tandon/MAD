@@ -32,9 +32,9 @@ public class UsernameAndPasswordStorage implements Serializable{
         this.password = password;
     }
 
-    public void storeCredentials(String saveLoc){
+    public void storeCredentials(){
         try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File(saveLoc)));
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("/sdcard/saveUserData.bin")));
             oos.writeObject(this);
             oos.flush();
             oos.close();
