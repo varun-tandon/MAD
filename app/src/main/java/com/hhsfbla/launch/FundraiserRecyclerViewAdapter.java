@@ -1,7 +1,8 @@
 package com.hhsfbla.launch;
 
+import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 
@@ -17,8 +19,10 @@ import java.util.List;
 
 public class FundraiserRecyclerViewAdapter extends RecyclerView.Adapter<FundraiserRecyclerViewAdapter.ViewHolder>  {
     private List<Fundraiser> mDataset;
+    private Context context;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        public String fid;
         public CardView card;
         public ImageView image;
         public TextView name;
@@ -39,28 +43,11 @@ public class FundraiserRecyclerViewAdapter extends RecyclerView.Adapter<Fundrais
             progressText = (TextView) v.findViewById(R.id.card_progress_text);
             progressBar = (RoundCornerProgressBar) v.findViewById(R.id.card_progress);
             daysLeftText = (TextView) v.findViewById(R.id.card_days_text);
-
-            card.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, FundraiserActivity.class);
-//                    intent.putExtra("fid");
-//                    uid = intent.getStringExtra("uid");
-//                    organizationName = intent.getStringExtra("organizationName");
-//                    purpose = intent.getStringExtra("purpose");
-//                    deadline = intent.getStringExtra("deadline");
-//                    description = intent.getStringExtra("description");
-//
-//                    goal = intent.getIntExtra("goal", 0);
-//                    amountRaised = intent.getIntExtra("amountRaised", 0);
-//
-//                    hasImage = intent.getBooleanExtra("hasImage", false);
-                }
-            });
         }
     }
 
-    public FundraiserRecyclerViewAdapter(List<Fundraiser> items) {
+    public FundraiserRecyclerViewAdapter(Context c, List<Fundraiser> items) {
+        context = c;
         mDataset = items;
     }
 
@@ -75,6 +62,7 @@ public class FundraiserRecyclerViewAdapter extends RecyclerView.Adapter<Fundrais
 
     @Override
     public void onBindViewHolder(FundraiserRecyclerViewAdapter.ViewHolder holder, final int position) {
+        holder.fid = mDataset.get(position).id;
         holder.image.setImageBitmap(mDataset.get(position).imageBitmap);
         holder.name.setText(mDataset.get(position).purpose);
         holder.orgname.setText(mDataset.get(position).organizationName);
@@ -82,9 +70,31 @@ public class FundraiserRecyclerViewAdapter extends RecyclerView.Adapter<Fundrais
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                fragmentJump(mDataset.get(position));
+            }
+            // from http://stackoverflow.com/questions/28984879/how-to-open-a-different-fragment-on-recyclerview-onclick
+            private void fragmentJump(Fundraiser mItemSelected) {
+                FundraiserFragment mFragment = new FundraiserFragment();
+                Bundle mBundle = new Bundle();
+                mBundle.putString("fid", mItemSelected.id);
+                mBundle.putString("uid", mItemSelected.uid);
+                mBundle.putString("purpose", mItemSelected.purpose);
+                mBundle.putString("orgname", mItemSelected.organizationName);
+                mBundle.putString("description", mItemSelected.description);
+                mBundle.putString("progressText", mItemSelected.makeProgressString());
+                mBundle.putString("deadline", mItemSelected.deadline);
+                mBundle.putInt("amountRaised", mItemSelected.amountRaised);
+                mBundle.putInt("goal", mItemSelected.goal);
+                mBundle.putParcelable("bitmap", mItemSelected.imageBitmap);
+                mFragment.setArguments(mBundle);
+                switchContent(R.id.content_frame, mFragment);
             }
         });
+    }
+
+    public void switchContent(int id, Fragment fragment) {
+        NavDrawerActivity mainActivity = (NavDrawerActivity) context;
+        mainActivity.switchContent(id, fragment);
     }
 
     @Override

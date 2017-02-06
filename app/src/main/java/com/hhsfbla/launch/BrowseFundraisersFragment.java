@@ -51,7 +51,7 @@ public class BrowseFundraisersFragment extends Fragment {
                             options.inSampleSize = 2;
                             f.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options));
                             fundraisers.add(f);
-                            mAdapter = new FundraiserRecyclerViewAdapter(fundraisers);
+                            mAdapter = new FundraiserRecyclerViewAdapter(getActivity(), fundraisers);
                             mRecyclerView.setAdapter(mAdapter);
                         }
                     });
@@ -64,7 +64,7 @@ public class BrowseFundraisersFragment extends Fragment {
             }
         });
 
-        mAdapter = new FundraiserRecyclerViewAdapter(fundraisers);
+        mAdapter = new FundraiserRecyclerViewAdapter(getActivity(), fundraisers);
         mRecyclerView.setAdapter(mAdapter);
         return browseFundraisersView;
     }
