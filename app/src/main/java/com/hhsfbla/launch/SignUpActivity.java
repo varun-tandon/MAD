@@ -77,7 +77,8 @@ public class SignUpActivity extends AppCompatActivity {
                                     }
                                     else {
                                         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                                       database.child("users").child(task.getResult().getUser().getUid()).child("full_name").setValue(fullnameInput.getText().toString());
+                                        DatabaseReference newReference = database.child("users").push();
+                                        database.child("users").child(task.getResult().getUser().getUid()).child("full_name").setValue(fullnameInput.getText().toString());
                                         database.child("users").child(task.getResult().getUser().getUid()).child("email").setValue(emailInput.getText().toString());
 //                                        database.child("users").child(task.getResult().getUser().getUid()).child("password").setValue(passwordInput.getText().toString());
                                         database.child("users").child(task.getResult().getUser().getUid()).child("user_fundraisers").setValue(new ArrayList<String>());
