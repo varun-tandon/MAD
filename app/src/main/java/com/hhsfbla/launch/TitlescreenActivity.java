@@ -47,7 +47,7 @@ public class TitlescreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+//        setContentView(R.layout.splash_screen_view);
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED || (ContextCompat.checkSelfPermission(this,
