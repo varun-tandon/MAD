@@ -84,6 +84,10 @@ public class SignUpActivity extends AppCompatActivity {
 //                                        database.child("fish").setValue("Fish");
 //                                        ((TextView) findViewById(R.id.nav_header_displayname)).setText(fullnameInput.getText().toString());
 //                                        ((TextView) findViewById(R.id.nav_header_email)).setText(emailInput.getText().toString());
+                                        UsernameAndPasswordStorage thisUser = new UsernameAndPasswordStorage();
+                                        thisUser.setUsername(emailInput.getText().toString());
+                                        thisUser.setPassword(passwordInput.getText().toString());
+                                        thisUser.storeCredentials(getString(R.string.save_location));
                                         Intent gotoMainIntent = new Intent(SignUpActivity.this, NavDrawerActivity.class);
                                         gotoMainIntent.putExtra("id", task.getResult().getUser().getUid());
                                         SignUpActivity.this.startActivity(gotoMainIntent);

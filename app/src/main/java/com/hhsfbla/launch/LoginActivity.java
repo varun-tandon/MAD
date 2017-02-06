@@ -68,6 +68,10 @@ public class LoginActivity extends AppCompatActivity {
                                                 Toast.LENGTH_SHORT).show();
                                     }
                                     else {
+                                        UsernameAndPasswordStorage thisUser = new UsernameAndPasswordStorage();
+                                        thisUser.setUsername(emailInput.getText().toString());
+                                        thisUser.setPassword(passwordInput.getText().toString());
+                                        thisUser.storeCredentials(getString(R.string.save_location));
                                         Intent gotoMainIntent = new Intent(LoginActivity.this, NavDrawerActivity.class);
                                         gotoMainIntent.putExtra("id", task.getResult().getUser().getUid());
                                         LoginActivity.this.startActivity(gotoMainIntent);
