@@ -26,18 +26,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.synnapps.carouselview.CarouselView
-                android:id="@+id/carouselView"
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                app:fillColor="#FFFFFFFF"
-                app:pageColor="#00000000"
-                app:radius="0dp"
-                app:slideInterval="3000"
-                app:strokeColor="#FF777777"
-                app:strokeWidth="1dp" />
+            <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_height="135dp"
+                app:srcCompat="@drawable/image_placeholder"
+                android:id="@+id/fundraiser_image"
+                android:layout_alignParentEnd="true"
+                android:background="#ddd"
+                android:layout_width="match_parent" />
 
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:app="http://schemas.android.com/apk/res-auto"
                     xmlns:tools="http://schemas.android.com/tools"
                     android:orientation="vertical"
@@ -46,7 +43,8 @@
                     android:weightSum="1"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
-                android:paddingBottom="100dp">
+                    android:paddingBottom="100dp">
+
                     <TextView
                         android:text="Campaign Title"
                         android:layout_width="match_parent"
@@ -70,19 +68,11 @@
                         <!--android:autoLink="web"-->
                         <!--android:"@+id/campaign p"/>-->
 
-                <TextView
-                    android:text="@string/home_page_description_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/homepage_campaign_descrption"
-                    android:layout_marginTop="7dp"
-                    android:layout_weight="0.32" />
-
-                <TextView
+                    <TextView
                         android:text="TextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/textView13"
+                        android:id="@+id/homepage_campaign_description"
                         android:textAllCaps="true"
                         tools:text="Learn More"
                         android:textColor="@color/colorAccent" />
@@ -114,16 +104,6 @@
                         android:id="@+id/textView12"
                         android:textAllCaps="true"
                         android:textStyle="normal|bold" />
-
-                <TextView
-                    android:text="TextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView14"
-                    android:textSize="20sp"
-                    android:textColor="@android:color/black"
-                    tools:text="Featured Item"
-                    android:layout_marginTop="16dp" />
 
 
                 <!--<com.hhsfbla.launch.TextViewExpandableAnimation-->
@@ -250,4 +230,5 @@
                 android:layout_marginTop="8dp" />
         </LinearLayout>
     </LinearLayout>
+
 </RelativeLayout>
