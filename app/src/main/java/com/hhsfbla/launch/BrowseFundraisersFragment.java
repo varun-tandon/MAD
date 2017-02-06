@@ -44,13 +44,16 @@ public class BrowseFundraisersFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 fundraisers.clear();
+
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     final Fundraiser f = child.getValue(Fundraiser.class);
                     f.setId(child.getKey());
-                    storageRef.child(child.getKey() + ".jpg").getBytes(2 * 1024 * 1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    storageRef.child(child.getKey() + ".jpg").getBytes(1024 * 1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                         @Override
                         public void onSuccess(byte[] bytes) {
-                            f.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+                            BitmapFactory.Options options = new BitmapFactory.Options();
+                            options.inSampleSize = 2;
+                            f.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options));
                             fundraisers.add(f);
                             mAdapter = new RecyclerViewAdapter(fundraisers);
                             mRecyclerView.setAdapter(mAdapter);
