@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -33,18 +34,18 @@ public class CreateFundraiserActivity extends AppCompatActivity implements DateP
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getTextFromField(R.id.organizationNameField).length() == 0 || getTextFromField(R.id.fundraiserPurposeField).length() == 0
-                        || getIntFromField(R.id.goalField) <= 0 || getTextFromField(R.id.fundraiser_dateField).length() == 0) {
-                    Toast.makeText(CreateFundraiserActivity.this, "Enter all fields first!", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Intent nextPageIntent = new Intent(CreateFundraiserActivity.this, FinishCreateFundraiserActivity.class);
-                    nextPageIntent.putExtra("organizationName", getTextFromField(R.id.organizationNameField));
-                    nextPageIntent.putExtra("purpose", getTextFromField(R.id.fundraiserPurposeField));
-                    nextPageIntent.putExtra("goal", getIntFromField(R.id.goalField));
-                    nextPageIntent.putExtra("deadline", getTextFromField(R.id.fundraiser_dateField));
-                    CreateFundraiserActivity.this.startActivity(nextPageIntent);
-                }
+            if (getTextFromField(R.id.organizationNameField).length() == 0 || getTextFromField(R.id.fundraiserPurposeField).length() == 0
+                    || getIntFromField(R.id.goalField) <= 0 || getTextFromField(R.id.fundraiser_dateField).length() == 0) {
+                Toast.makeText(CreateFundraiserActivity.this, "Enter all fields first!", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Intent nextPageIntent = new Intent(CreateFundraiserActivity.this, FinishCreateFundraiserActivity.class);
+                nextPageIntent.putExtra("organizationName", getTextFromField(R.id.organizationNameField));
+                nextPageIntent.putExtra("purpose", getTextFromField(R.id.fundraiserPurposeField));
+                nextPageIntent.putExtra("goal", getIntFromField(R.id.goalField));
+                nextPageIntent.putExtra("deadline", getTextFromField(R.id.fundraiser_dateField));
+                CreateFundraiserActivity.this.startActivity(nextPageIntent);
+            }
             }
         });
 
@@ -90,5 +91,16 @@ public class CreateFundraiserActivity extends AppCompatActivity implements DateP
             }
         }
         return 0;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish(); // back button
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
