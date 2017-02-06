@@ -116,13 +116,18 @@ public class NavDrawerActivity extends AppCompatActivity
                     .replace(R.id.content_frame, new AccountViewPageFragment()).commit();
 
         }
-            else if (id == R.id.nav_home) {
+        else if (id == R.id.nav_home) {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, new LaunchHomePageFragment()).commit();
-        } else if (id == R.id.nav_fundraisers) {
+                .replace(R.id.content_frame, new LaunchHomePageFragment()).commit();
+        }
+        else if (id == R.id.nav_fundraisers) {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.content_frame, new YourFundraisersPageFragment()).commit();
+        }
+        else if (id == R.id.nav_browse) {
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, new BrowseFundraisersFragment()).commit();
         }
         else if (id == R.id.nav_launch_fundraiser) {
             Intent launchFundraiserIntent = new Intent(NavDrawerActivity.this, CreateFundraiserActivity.class);

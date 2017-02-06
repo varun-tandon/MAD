@@ -3,17 +3,17 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_browse"
+            android:title="Browse" />
+        <item
             android:id="@+id/nav_launch_fundraiser"
-            android:title="Launch Fundraiser" />
+            android:title="Launch a Fundraiser" />
         <item
             android:id="@+id/nav_home"
             android:title="Launch Progress" />
         <item
             android:id="@+id/nav_fundraisers"
             android:title="Your Fundraisers" />
-        <item
-            android:id="@+id/nav_donate"
-            android:title="Donate" />
         <item
             android:id="@+id/nav_account_settings"
             android:title="Account Settings"/>

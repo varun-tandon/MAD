@@ -1,5 +1,7 @@
 package com.hhsfbla.launch;
 
+import android.graphics.Bitmap;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -8,6 +10,8 @@ import java.util.Date;
  */
 public class Fundraiser {
 
+    protected String id;
+
     protected String uid;
     protected String organizationName;
     protected String purpose;
@@ -15,10 +19,11 @@ public class Fundraiser {
     protected String deadline;
     protected String description;
     protected boolean hasImage;
-
     protected int amountRaised;
 
-    protected ArrayList<Item> items;
+    protected Bitmap imageBitmap;
+
+    public Fundraiser() {}
 
     public Fundraiser(String uid, String organizationName, String purpose, int goal, String deadline,
                       String description, boolean hasImage) {
@@ -30,11 +35,18 @@ public class Fundraiser {
         this.description = description;
         this.hasImage = hasImage;
         amountRaised = 0;
-
-        items = new ArrayList<Item>();
     }
 
-    public void addItem(Item i) {
-        items.add(i);
+    public void setId(String id) {
+        this.id = id;
     }
+
+    public void setImageBitmap(Bitmap imageBitmap) {
+        this.imageBitmap = imageBitmap;
+    }
+
+    public String makeProgressString() {
+        return "$" + amountRaised + " raised of " + "$" + goal;
+    }
+
 }

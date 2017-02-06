@@ -121,7 +121,7 @@ public class FinishCreateFundraiserActivity extends AppCompatActivity {
                         final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                         imagePreview.setImageBitmap(selectedImage);
                         imageBitmap = BitmapFactory.decodeStream(imageStream);
-                        Toast.makeText(FinishCreateFundraiserActivity.this, "Image selected" + (imagePreview != null), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(FinishCreateFundraiserActivity.this, "Image selected", Toast.LENGTH_SHORT).show();
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
