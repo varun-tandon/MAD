@@ -21,8 +21,8 @@
         android:layout_marginStart="10dp"
         android:id="@+id/donate_proceed_button"
         android:layout_alignParentEnd="true"
-        android:background="@color/colorAccent"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        style="@style/Widget.AppCompat.Button.Colored" />
 
     <EditText
         android:layout_width="wrap_content"

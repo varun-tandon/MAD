@@ -78,7 +78,7 @@
         android:layout_marginBottom="10dp"
         android:id="@+id/launchFundraiserButton"
         android:layout_alignParentEnd="true"
-        android:background="@drawable/button_style"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        style="@style/Widget.AppCompat.Button.Colored" />
 
 </RelativeLayout>

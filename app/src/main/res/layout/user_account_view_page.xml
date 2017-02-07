@@ -77,9 +77,8 @@
         android:layout_width="164dp"
         android:layout_height="wrap_content"
         android:id="@+id/edit_button"
-        android:background="@drawable/button_style"
         android:textColor="#ffffff"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        />
+        style="@style/Widget.AppCompat.Button.Colored" />
 </LinearLayout>
