@@ -1,5 +1,6 @@
 package com.hhsfbla.launch;
 
+import android.app.FragmentManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -27,6 +29,16 @@ public class FundraiserFragment extends Fragment {
         setTextForTextView(R.id.nonprofit_org_name_textview, data.getString("orgname"));
         setTextForTextView(R.id.homepage_campaign_description, data.getString("description"));
         setTextForTextView(R.id.progress_text, data.getString("progressText"));
+
+        LinearLayout buy = (LinearLayout) fundraiserView.findViewById(R.id.buy_button);
+        buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.content_frame, new BrowseItemsFragment()).commit();
+            }
+        });
 
         return fundraiserView;
     }
