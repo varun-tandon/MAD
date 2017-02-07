@@ -9,8 +9,6 @@ import android.widget.ImageView;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 
-import java.util.ArrayList;
-
 /**
  * Created by zhenfangchen on 1/26/17.
  */
@@ -36,18 +34,6 @@ public class FundraiserActivity extends AppCompatActivity{
 
     protected void onCreate(Bundle savedInstantState) {
         super.onCreate(savedInstantState);
-
-        setContentView(R.layout.activity_launch_home);
-
-        carouselView = (CarouselView) findViewById(R.id.fundraiserCarousel);
-        carouselView.setPageCount(images.length);
-
-        carouselView.setImageListener(new ImageListener() {
-            @Override
-            public void setImageForPosition(int position, ImageView imageView) {
-                imageView.setImageResource(images[position]);
-            }
-        });
 
         Intent intent = getIntent();
         fid = intent.getStringExtra("fid");

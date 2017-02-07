@@ -6,7 +6,6 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,7 +18,7 @@ public class FundraiserFragment extends Fragment {
     private View fundraiserView;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        fundraiserView = inflater.inflate(R.layout.activity_launch_home, container, false);
+        fundraiserView = inflater.inflate(R.layout.fragment_fundraiser, container, false);
 
         Bundle data = getArguments();
         ImageView fundraiserImg = (ImageView) fundraiserView.findViewById(R.id.fundraiser_image);
