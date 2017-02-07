@@ -1,5 +1,6 @@
 package com.hhsfbla.launch;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,11 +18,8 @@ import com.braintreepayments.api.dropin.DropInActivity;
 import com.braintreepayments.api.dropin.DropInRequest;
 import com.braintreepayments.api.dropin.DropInResult;
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
-
-import org.w3c.dom.Text;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -43,6 +41,7 @@ public class DonateActivity extends AppCompatActivity {
         TextView purpose = (TextView) findViewById(R.id.donate_fname);
         purpose.setText(getIntent().getStringExtra("purpose"));
         Button proceedButton = (Button) findViewById(R.id.donate_proceed_button);
+
         donateAmountField = (EditText) findViewById(R.id.donate_amount_field);
         donateAmountField.requestFocus();
 //        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
@@ -98,7 +97,8 @@ public class DonateActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, String responseBody) {
                     Log.d("Donate", responseBody);
-                    Toast.makeText(DonateActivity.this, responseBody, Toast.LENGTH_LONG).show();
+                    DialogFragment dialog = new DonationSuccessDialog();
+                    dialog.show(getFragmentManager(), "Success");
                 }
 
                 @Override
