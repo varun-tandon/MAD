@@ -1,18 +1,14 @@
 package com.hhsfbla.launch;
 
 import android.app.Fragment;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -55,7 +51,7 @@ public class BrowseFundraisersFragment extends Fragment {
                             options.inSampleSize = 2;
                             f.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options));
                             fundraisers.add(f);
-                            mAdapter = new RecyclerViewAdapter(fundraisers);
+                            mAdapter = new FundraiserRecyclerViewAdapter(getActivity(), fundraisers);
                             mRecyclerView.setAdapter(mAdapter);
                         }
                     });
@@ -68,7 +64,7 @@ public class BrowseFundraisersFragment extends Fragment {
             }
         });
 
-        mAdapter = new RecyclerViewAdapter(fundraisers);
+        mAdapter = new FundraiserRecyclerViewAdapter(getActivity(), fundraisers);
         mRecyclerView.setAdapter(mAdapter);
         return browseFundraisersView;
     }

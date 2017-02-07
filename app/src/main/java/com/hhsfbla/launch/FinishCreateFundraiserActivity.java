@@ -81,6 +81,8 @@ public class FinishCreateFundraiserActivity extends AppCompatActivity {
                             data.getInt("goal"), data.getString("deadline"), description, imageBitmap != null ? true : false);
                     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
                     DatabaseReference newRef = database.child("fundraisers").push();
+                    fundraiser.setId(newRef.getKey());
+
                     newRef.setValue(fundraiser);
 
                     StorageReference imageRef = storageRef.child("fundraisers/" + newRef.getKey() + ".jpg");
