@@ -48,51 +48,7 @@ public class TitlescreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.splash_screen_view);
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED || (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED)) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    420);
-        }
-        File f = new File("/sdcard/saveUserData.bin");
-        if(f.exists()){
-            UsernameAndPasswordStorage storage = new UsernameAndPasswordStorage();
-            try {
-                ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
-                storage = (UsernameAndPasswordStorage) ois.readObject();
 
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-
-            FirebaseAuth.getInstance().signInWithEmailAndPassword(storage.getUsername(),storage.getPassword())
-                    .addOnCompleteListener(TitlescreenActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(Task<AuthResult> task) {
-                            Log.d("tag", "signInWithEmail:onComplete:" + task.isSuccessful());
-
-                            // If sign in fails, display a message to the user. If sign in succeeds
-                            // the auth state listener will be notified and logic to handle the
-                            // signed in user can be handled in the listener.
-                            if (!task.isSuccessful()) {
-                                Toast.makeText(TitlescreenActivity.this, "Login failed.",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                            else {
-
-                                Intent gotoMainIntent = new Intent(TitlescreenActivity.this, NavDrawerActivity.class);
-                                gotoMainIntent.putExtra("id", task.getResult().getUser().getUid());
-                                TitlescreenActivity.this.startActivity(gotoMainIntent);
-                            }
-                        }
-                    });
-        }else {
             setContentView(R.layout.activity_titlescreen);
             Window window = this.getWindow();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -116,7 +72,7 @@ public class TitlescreenActivity extends AppCompatActivity {
                     TitlescreenActivity.this.startActivity(loginIntent);
                 }
             });
-        }}
+        }
 
     private void hide() {
         // Hide UI first
