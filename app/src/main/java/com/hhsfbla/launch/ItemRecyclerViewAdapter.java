@@ -2,6 +2,8 @@ package com.hhsfbla.launch;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -43,6 +45,22 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
             image = (ImageView) v.findViewById(R.id.item_card_image);
             name = (TextView) v.findViewById(R.id.item_card_name);
             price = (TextView) v.findViewById(R.id.item_card_price);
+
+            //code influenced by http://stackoverflow.com/questions/28767413/how-to-open-a-different-activity-on-recyclerview-item-onclick
+            card.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, BrowseItemsActivity.class);
+                    intent.putExtra("uid", uid);
+                    intent.putExtra("fid", fid);
+                    intent.putExtra("condition", condition);
+                    intent.putExtra("description", description);
+                    intent.putExtra("name", name.getText());
+                    intent.putExtra("price", price.getText());
+                    intent.putExtra("image", ((BitmapDrawable)image.getDrawable()).getBitmap());
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 
@@ -70,26 +88,6 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         holder.image.setImageBitmap(mDataset.get(position).imageBitmap);
         holder.name.setText(mDataset.get(position).name);
         holder.price.setText(mDataset.get(position).price+"");
-        holder.card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fragmentJump(mDataset.get(position));
-            }
-            // from http://stackoverflow.com/questions/28984879/how-to-open-a-different-fragment-on-recyclerview-onclick
-            private void fragmentJump(Item mItemSelected) {
-                FundraiserFragment mFragment = new FundraiserFragment();
-                Bundle mBundle = new Bundle();
-                mBundle.putString("fid", mItemSelected.fundraiserID);
-                mBundle.putString("uid", mItemSelected.uid);
-                mBundle.putString("condition", mItemSelected.condition);
-                mBundle.putString("description", mItemSelected.description);
-                mBundle.putString("name", mItemSelected.name);
-                mBundle.putString("price", mItemSelected.price+"");
-                mBundle.putParcelable("bitmap", mItemSelected.imageBitmap);
-                mFragment.setArguments(mBundle);
-                switchContent(R.id.content_frame, mFragment);
-            }
-        });
     }
 
     public void switchContent(int id, Fragment fragment) {

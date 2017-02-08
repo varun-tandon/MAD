@@ -31,6 +31,9 @@ public class FundraiserFragment extends Fragment {
         setTextForTextView(R.id.homepage_campaign_description, data.getString("description"));
         setTextForTextView(R.id.progress_text, data.getString("progressText"));
 
+        final String fid = data.getString("fid");
+        final String uid = data.getString("uid");
+
         LinearLayout buy = (LinearLayout) fundraiserView.findViewById(R.id.buy_button);
         buy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +52,17 @@ public class FundraiserFragment extends Fragment {
                 getActivity().startActivity(donateIntent);
             }
         });
+
+        LinearLayout sellButton = (LinearLayout) fundraiserView.findViewById(R.id.sell_button);
+        sellButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent sellIntent = new Intent(getActivity(), CreateItemActivity.class);
+                sellIntent.putExtra("uid", uid);
+                sellIntent.putExtra("fid", fid);
+                getActivity().startActivity(sellIntent);
+            }
+        });
+
         data.clear();
         return fundraiserView;
     }
