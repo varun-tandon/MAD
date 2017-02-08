@@ -62,15 +62,17 @@ public class FundraiserRecyclerViewAdapter extends RecyclerView.Adapter<Fundrais
 
     @Override
     public void onBindViewHolder(FundraiserRecyclerViewAdapter.ViewHolder holder, final int position) {
-        holder.fid = mDataset.get(position).id;
-        holder.image.setImageBitmap(mDataset.get(position).imageBitmap);
-        holder.name.setText(mDataset.get(position).purpose);
-        holder.orgname.setText(mDataset.get(position).organizationName);
-        holder.progressText.setText(mDataset.get(position).makeProgressString());
+        final Fundraiser f = mDataset.get(position);
+        holder.fid = f.id;
+        holder.image.setImageBitmap(f.imageBitmap);
+        holder.name.setText(f.purpose);
+        holder.orgname.setText(f.organizationName);
+        holder.progressText.setText(f.makeProgressString());
+        holder.progressBar.setProgress(f.amountRaised * 100f / f.goal);
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragmentJump(mDataset.get(position));
+                fragmentJump(f);
             }
             // from http://stackoverflow.com/questions/28984879/how-to-open-a-different-fragment-on-recyclerview-onclick
             private void fragmentJump(Fundraiser mItemSelected) {

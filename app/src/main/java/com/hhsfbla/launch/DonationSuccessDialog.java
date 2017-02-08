@@ -40,6 +40,9 @@ public class DonationSuccessDialog extends DialogFragment {
                 }
             });
 
+//        TODO: add actual data change dialog text
+
+
 //        TODO: learn how to animate
 //        ImageView successImage = (ImageView) getActivity().findViewById(R.id.donate_success_icon);
 //        Animation expandIn = AnimationUtils.loadAnimation(getActivity(), R.anim.expand_in);
