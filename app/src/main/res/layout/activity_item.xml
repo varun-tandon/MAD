@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                app:srcCompat="@drawable/image_placeholder"
+                android:id="@+id/item_picture" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp">
+
+
+                <TextView
+                    android:text="Item Name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/item_name"
+                    android:textSize="30dp"
+                    android:layout_marginBottom="10dp"/>
+
+                <TextView
+                    android:text="Price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/item_price"
+                    android:textSize="20dp"
+                    android:layout_marginBottom="10dp"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp">
+
+
+                    <TextView
+                        android:text="Condition:"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20dp"/>
+
+                    <Button
+                        android:text="Condition"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/item_condition"
+                        android:clickable="false"
+                        android:layout_marginLeft="15dp"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:text="Description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/item_description"
+                    android:textSize="15dp"
+                    android:layout_marginBottom="15dp"/>
+
+                <Button
+                    android:text="Buy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/item_buy"
+                    android:textSize="15dp"/>
+
+            </LinearLayout>
+
+            <!-- code sourced from http://stackoverflow.com/questions/5049852/android-drawing-separator-divider-line-in-layout -->
+            <View
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@android:color/black"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp">
+
+                <TextView
+                    android:text="About the Seller and Campaign"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:gravity="center"/>
+
+                <View
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/black"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp">
+
+
+                    <ImageView
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        app:srcCompat="@drawable/image_placeholder"
+                        android:id="@+id/item_seller_picture"
+                        android:layout_marginLeft="30dp"/>
+
+                    <TextView
+                        android:text="Seller Name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/item_seller_name"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="15dp"
+                        android:layout_marginLeft="20dp"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/black"/>
+
+                <TextView
+                    android:text="By buying this item, you contribute to: "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:text="Fundraiser Name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/item_fundraiser_name"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:textSize="15dp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@android:color/black"/>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

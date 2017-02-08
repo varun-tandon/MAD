@@ -1,8 +1,8 @@
 package com.hhsfbla.launch;
 
-import android.app.Fragment;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,17 +24,21 @@ import java.util.ArrayList;
  * Created by zhenfangchen on 2/6/17.
  */
 
-public class BrowseItemsFragment extends Fragment{
+public class BrowseItemsActivity extends AppCompatActivity{
 
     private View browseItemsView;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        browseItemsView = inflater.inflate(R.layout.fragment_browse_fundraisers, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_browse_items);
+
+        browseItemsView = findViewById(R.id.browse_items_view);
 
         mRecyclerView = (RecyclerView) browseItemsView.findViewById(R.id.browse_recycler);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(BrowseItemsActivity.this));
         final ArrayList<Item> items = new ArrayList<Item>();
 
         final StorageReference storageRef = FirebaseStorage.getInstance().getReference("items");
@@ -54,7 +58,7 @@ public class BrowseItemsFragment extends Fragment{
                                 options.inSampleSize = 2;
                                 f.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options));
                                 items.add(f);
-                                mAdapter = new ItemRecyclerViewAdapter(getActivity(), items);
+                                mAdapter = new ItemRecyclerViewAdapter(BrowseItemsActivity.this, items);
                                 mRecyclerView.setAdapter(mAdapter);
                             }
                         });
@@ -68,9 +72,8 @@ public class BrowseItemsFragment extends Fragment{
             }
         });
 
-        mAdapter = new ItemRecyclerViewAdapter(getActivity(), items);
+        mAdapter = new ItemRecyclerViewAdapter(BrowseItemsActivity.this, items);
         mRecyclerView.setAdapter(mAdapter);
-        return browseItemsView;
     }
 
 }

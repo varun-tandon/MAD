@@ -8,7 +8,6 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,9 +35,8 @@ public class FundraiserFragment extends Fragment {
         buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.content_frame, new BrowseItemsFragment()).commit();
+               Intent buyIntent = new Intent(getActivity(), BrowseItemsActivity.class);
+                getActivity().startActivity(buyIntent);
             }
         });
 
