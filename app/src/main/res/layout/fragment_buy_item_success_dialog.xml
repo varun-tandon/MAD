@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="107dp"
+        app:srcCompat="@drawable/success"
+        android:id="@+id/donate_success_icon"
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:text="Success!"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView11"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textAlignment="center" />
+
+    <TextView
+        android:text="Thanks to your purchase, $x was donated to [fundraiser]. A receipt and shipping details have been sent to [email]."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/donation_success_text"
+        android:layout_marginTop="16dp" />
+</LinearLayout>

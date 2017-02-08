@@ -53,6 +53,10 @@
             android:label="Donate"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".BuyItemActivity"
+            android:label="Complete Purchase"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".BrowseItemsActivity"
             android:label="Browse Fundraiser Items"
             android:theme="@style/AppTheme.NoActionBar" />
