@@ -15,7 +15,7 @@ public class ItemActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.donate_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.item_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
