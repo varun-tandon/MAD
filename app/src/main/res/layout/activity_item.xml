@@ -84,16 +84,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/item_buy"
-                    android:textSize="15dp"/>
+                    android:textSize="15dp"
+                    style="@style/Widget.AppCompat.Button.Colored" />
 
             </LinearLayout>
 
-            <!-- code sourced from http://stackoverflow.com/questions/5049852/android-drawing-separator-divider-line-in-layout -->
-            <View
-                android:layout_marginTop="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@android:color/black"/>
 
             <LinearLayout
                 android:orientation="vertical"
@@ -108,67 +103,65 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20dp"
-                    android:gravity="center"/>
-
-                <View
-                    android:layout_marginTop="15dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@android:color/black"/>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="15dp">
-
-
-                    <ImageView
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
-                        app:srcCompat="@drawable/image_placeholder"
-                        android:id="@+id/item_seller_picture"
-                        android:layout_marginLeft="30dp"/>
-
-                    <TextView
-                        android:text="Seller Name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/item_seller_name"
-                        android:layout_gravity="center_vertical"
-                        android:textSize="15dp"
-                        android:layout_marginLeft="20dp"/>
-                </LinearLayout>
-
-                <View
-                    android:layout_marginTop="15dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@android:color/black"/>
-
-                <TextView
-                    android:text="By buying this item, you contribute to: "
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:gravity="center"/>
-
-                <TextView
-                    android:text="Fundraiser Name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/item_fundraiser_name"
-                    android:layout_marginTop="15dp"
                     android:gravity="center"
-                    android:textSize="15dp"/>
+                    android:textAlignment="viewStart"
+                    android:layout_marginBottom="10dp" />
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:text="By buying this item, you contribute to: "
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:gravity="center"
+                            android:layout_weight="1" />
+
+                        <TextView
+                        android:text="Fundraiser Name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/item_fundraiser_name"
+                        android:layout_marginTop="15dp"
+                        android:gravity="center"
+                        android:textSize="15dp"
+                        android:layout_weight="1" />
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="15dp">
+
+
+                            <ImageView
+                                android:layout_width="75dp"
+                                android:layout_height="75dp"
+                                app:srcCompat="@drawable/image_placeholder"
+                                android:id="@+id/item_seller_picture"
+                                android:layout_marginLeft="30dp"/>
+
+                            <TextView
+                                android:text="Seller Name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/item_seller_name"
+                                android:layout_gravity="center_vertical"
+                                android:textSize="15dp"
+                                android:layout_marginLeft="20dp"/>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
 
             </LinearLayout>
-
-            <View
-                android:layout_marginTop="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@android:color/black"/>
 
         </LinearLayout>
     </ScrollView>
