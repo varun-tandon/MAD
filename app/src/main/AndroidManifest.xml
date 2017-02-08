@@ -53,6 +53,12 @@
             android:label="Donate"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".BrowseItemsActivity"
+            android:label="Browse Fundraiser Items"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ItemActivity"
+            android:label="Item Info"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="com.braintreepayments.api.BraintreeBrowserSwitchActivity"
             android:launchMode="singleTask">
             <intent-filter>
