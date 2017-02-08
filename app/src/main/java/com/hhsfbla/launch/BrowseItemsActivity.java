@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -32,12 +34,15 @@ public class BrowseItemsActivity extends AppCompatActivity{
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_browse_items);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.browse_items_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         browseItemsView = findViewById(R.id.browse_items_view);
 
-        mRecyclerView = (RecyclerView) browseItemsView.findViewById(R.id.browse_recycler);
+        mRecyclerView = (RecyclerView) browseItemsView.findViewById(R.id.browse_items_recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(BrowseItemsActivity.this));
         final ArrayList<Item> items = new ArrayList<Item>();
 
@@ -76,4 +81,15 @@ public class BrowseItemsActivity extends AppCompatActivity{
         mRecyclerView.setAdapter(mAdapter);
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish(); // back button
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }
