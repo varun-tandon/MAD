@@ -56,7 +56,7 @@
         <activity android:name=".BuyItemActivity"
             android:label="Complete Purchase"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".BrowseItemsActivity"
             android:label="Browse Fundraiser Items"
             android:theme="@style/AppTheme.NoActionBar" />
