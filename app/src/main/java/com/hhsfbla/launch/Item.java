@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class Item {
 
+    protected String id;
     protected String uid;
     protected String fundraiserID;
     protected String name;
@@ -19,16 +20,24 @@ public class Item {
 
     protected Bitmap imageBitmap;
 
-    public Item(String uid, String fundraiserID, String name, double price, String condition, String description) {
+    protected boolean hasBitmap;
+
+    public Item(String uid, String fundraiserID, String name, double price, String condition, String description, boolean hasBitmap) {
+        id = "";
         this.uid = uid;
         this.fundraiserID = fundraiserID;
         this.name = name;
         this.price = price;
         this.condition = condition;
         this.description = description;
+        this.hasBitmap = hasBitmap;
     }
 
     public void setImageBitmap(Bitmap imageBitmap) {
         this.imageBitmap = imageBitmap;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
