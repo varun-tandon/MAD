@@ -3,6 +3,8 @@ package com.hhsfbla.launch;
 import android.graphics.Bitmap;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -52,7 +54,20 @@ public class Fundraiser implements Serializable{
     }
 
     public String makeProgressString() {
-        return "$" + amountRaised + " raised of " + "$" + goal;
+        return "$" + amountRaised + " raised of " + "$" + goal + " goal";
+    }
+
+    public String makeDaysRemainingString() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        try {
+            Date deadline = dateFormat.parse(this.deadline);
+            Date today = new Date();
+            int daysUntil = (int) ((deadline.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+            return daysUntil + " days left";
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void addItem(String itemID) {

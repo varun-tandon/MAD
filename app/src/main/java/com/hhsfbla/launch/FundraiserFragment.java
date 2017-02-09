@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,6 +18,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by Varun on 1/25/2017.
@@ -28,7 +33,6 @@ public class FundraiserFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         fundraiserView = inflater.inflate(R.layout.fragment_fundraiser, container, false);
-
         // populate page with data
         final Bundle data = getArguments();
         ImageView fundraiserImg = (ImageView) fundraiserView.findViewById(R.id.fundraiser_image);
@@ -39,6 +43,16 @@ public class FundraiserFragment extends Fragment {
         setTextForTextView(R.id.progress_text, data.getString("progressText"));
         final RoundCornerProgressBar progressBar = (RoundCornerProgressBar)
                 fundraiserView.findViewById(R.id.fundraiser_progressbar);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        try {
+            Date deadline = dateFormat.parse(data.getString("deadline"));
+            Date today = new Date();
+            int daysUntil = (int) ((deadline.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+            setTextForTextView(R.id.daysLeftText, daysUntil + " days left");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         final String fid = data.getString("fid");
         final String uid = data.getString("uid");
@@ -52,7 +66,7 @@ public class FundraiserFragment extends Fragment {
                 int amountRaised = dataSnapshot.child("amountRaised").getValue(Integer.class);
                 int goal = dataSnapshot.child("goal").getValue(Integer.class);
                 progressBar.setProgress(amountRaised * 100f / goal);
-                setTextForTextView(R.id.progress_text, "$" + amountRaised + " raised of $" + goal);
+                setTextForTextView(R.id.progress_text, "$" + amountRaised + " raised of $" + goal + " goal");
             }
             @Override
             public void onCancelled(DatabaseError error) {}
