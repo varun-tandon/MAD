@@ -89,7 +89,7 @@ public class SignUpActivity extends AppCompatActivity {
                                         thisUser.setUsername(emailInput.getText().toString());
                                         thisUser.setPassword(passwordInput.getText().toString());
                                         thisUser.storeCredentials();
-                                        Intent gotoMainIntent = new Intent(SignUpActivity.this, NavDrawerActivity.class);
+                                        Intent gotoMainIntent = new Intent(SignUpActivity.this, IntroductionScene.class);
                                         gotoMainIntent.putExtra("id", task.getResult().getUser().getUid());
                                         SignUpActivity.this.startActivity(gotoMainIntent);
                                     }

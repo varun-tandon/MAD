@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -45,6 +47,7 @@ public class CreateFundraiserActivity extends AppCompatActivity implements DateP
                 nextPageIntent.putExtra("goal", getIntFromField(R.id.goalField));
                 nextPageIntent.putExtra("deadline", getTextFromField(R.id.fundraiser_dateField));
                 CreateFundraiserActivity.this.startActivity(nextPageIntent);
+                finish();
             }
             }
         });
@@ -97,10 +100,17 @@ public class CreateFundraiserActivity extends AppCompatActivity implements DateP
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                this.finish(); // back button
+                Intent nextPageIntent = new Intent(CreateFundraiserActivity.this, NavDrawerActivity.class);
+                startActivity(nextPageIntent);
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    public void onBackPressed() {
+        Intent nextPageIntent = new Intent(CreateFundraiserActivity.this, NavDrawerActivity.class);
+        startActivity(nextPageIntent);
+        finish();
     }
 }

@@ -22,7 +22,6 @@ public class FundraiserFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         fundraiserView = inflater.inflate(R.layout.fragment_fundraiser, container, false);
-
         final Bundle data = getArguments();
         ImageView fundraiserImg = (ImageView) fundraiserView.findViewById(R.id.fundraiser_image);
         fundraiserImg.setImageBitmap((Bitmap) data.getParcelable("bitmap"));

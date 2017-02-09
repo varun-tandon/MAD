@@ -2,6 +2,7 @@ package com.hhsfbla.launch;
 
 import android.app.DialogFragment;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.io.File;
 
 import static android.content.ContentValues.TAG;
 
@@ -65,7 +68,16 @@ public class AccountViewPageFragment extends Fragment {
                 dialog.show(getChildFragmentManager(), "FragmentTest");
             }
         });
+        launchAccountPage.findViewById(R.id.sign_out_button).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                File file = new File("/sdcard/saveUserData.bin");
+                boolean deleted = file.delete();
+                Intent intent = new Intent(getActivity(), TitlescreenActivity.class);
+                startActivity(intent);
+                getActivity().finish();
 
+            }
+        });
 //        ((TextView)launchAccountPage.findViewById(R.id.account_page_user_name)).setText(myRef.toString());
 //        myRef.addValueEventListener(new ValueEventListener() {
 //            @Override

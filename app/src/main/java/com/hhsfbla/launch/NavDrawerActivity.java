@@ -133,6 +133,8 @@ public class NavDrawerActivity extends AppCompatActivity
         else if (id == R.id.nav_launch_fundraiser) {
             Intent launchFundraiserIntent = new Intent(NavDrawerActivity.this, CreateFundraiserActivity.class);
             NavDrawerActivity.this.startActivity(launchFundraiserIntent);
+            finish();
+
         }
 //        } else if (id == R.id.nav_share) {
 //

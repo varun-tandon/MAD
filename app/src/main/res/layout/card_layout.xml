@@ -53,7 +53,7 @@
 
             <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
                 android:layout_width="match_parent"
-                app:rcProgress="29.0"
+                app:rcProgress="0.0"
                 app:rcMax="100.0"
                 app:rcRadius="13dp"
                 app:rcBackgroundPadding="1dp"

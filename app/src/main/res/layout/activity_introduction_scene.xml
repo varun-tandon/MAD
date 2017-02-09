@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_introduction_scene"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hhsfbla.launch.IntroductionScene">
+
+
+    <Button
+        android:text="Next"
+        android:layout_width="69dp"
+        android:layout_height="35dp"
+        android:fontFamily="sans-serif-medium"
+        android:id="@+id/next_button_intro"
+        android:layout_gravity="right|bottom"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="#000"
+        android:background="#dfdfdf"
+
+        />
+
+    <Button
+        android:text="Got it!"
+        android:layout_width="69dp"
+        android:layout_height="35dp"
+        android:fontFamily="sans-serif-medium"
+        android:id="@+id/gotit_button_intro"
+        android:layout_gravity="right|bottom"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="#000"
+        android:background="#dfdfdf"
+        />
+    <Button
+        android:text="Back"
+        android:layout_width="69dp"
+        android:layout_height="35dp"
+        android:fontFamily="sans-serif-medium"
+        android:id="@+id/back_button_intro"
+        android:layout_gravity="left|bottom"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="#000"
+        android:background="#dfdfdf"
+
+        />
+    <ViewFlipper
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/view_switcher_intro"
+
+        >
+
+    </ViewFlipper>
+
+
+
+</FrameLayout>

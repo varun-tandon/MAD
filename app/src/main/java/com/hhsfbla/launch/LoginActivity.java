@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                                         thisUser.setUsername(emailInput.getText().toString());
                                         thisUser.setPassword(passwordInput.getText().toString());
                                         thisUser.storeCredentials();
-                                        Intent gotoMainIntent = new Intent(LoginActivity.this, NavDrawerActivity.class);
+                                        Intent gotoMainIntent = new Intent(LoginActivity.this, IntroductionScene.class);
                                         gotoMainIntent.putExtra("id", task.getResult().getUser().getUid());
                                         LoginActivity.this.startActivity(gotoMainIntent);
                                     }
