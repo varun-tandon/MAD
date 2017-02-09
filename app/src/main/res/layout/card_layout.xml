@@ -1,77 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
     android:layout_marginRight="6dp"
     android:layout_marginLeft="6dp"
     android:id="@+id/card"
-    android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <com.balysv.materialripple.MaterialRippleLayout
+        android:id="@+id/card_ripple"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="143dp"
-            app:srcCompat="@drawable/image_placeholder"
-            android:id="@+id/card_image"
-            android:background="#ddd" />
+        android:layout_height="match_parent"
+        app:mrl_rippleColor="#26000000"
+        app:mrl_rippleAlpha="0.10"
+        app:mrl_rippleOverlay="false"
+        app:mrl_rippleHover="true"
+        app:mrl_rippleDimension="1dp"
+        app:mrl_rippleDuration="350">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp">
+            android:layout_height="match_parent">
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="143dp"
+                app:srcCompat="@drawable/image_placeholder"
+                android:id="@+id/card_image"
+                android:background="#ddd" />
 
-            <TextView
-                android:text="TextView"
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/card_name"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                android:layout_margin="12dp">
 
-            <TextView
-                android:text="Nonprofit Organization Name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/card_nonprofit_name"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:layout_marginTop="5dp" />
 
-            <TextView
-                android:text="$2,900 raised of $10,000 goal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/card_progress_text"
-                android:textSize="14sp"
-                android:layout_marginTop="5dp" />
+                <TextView
+                    android:text="TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/card_name"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
-            <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-                android:layout_width="match_parent"
-                app:rcProgress="0.0"
-                app:rcMax="100.0"
-                app:rcRadius="13dp"
-                app:rcBackgroundPadding="1dp"
-                app:rcReverse="false"
-                app:rcProgressColor="#3498db"
-                app:rcBackgroundColor="#eeeeee"
-                android:layout_height="16dp"
-                android:id="@+id/card_progress" />
+                <TextView
+                    android:text="Nonprofit Organization Name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/card_nonprofit_name"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_marginTop="5dp" />
 
-            <TextView
-                android:text="20 days left"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/card_days_text"
-                android:textAllCaps="true"
-                android:textStyle="normal|bold" />
+                <TextView
+                    android:text="$2,900 raised of $10,000 goal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/card_progress_text"
+                    android:textSize="14sp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/pb_blue" />
+
+                <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                    android:layout_width="match_parent"
+                    app:rcProgress="29.0"
+                    app:rcMax="100.0"
+                    app:rcRadius="13dp"
+                    app:rcBackgroundPadding="1dp"
+                    app:rcReverse="false"
+                    app:rcProgressColor="#3498db"
+                    app:rcBackgroundColor="#eeeeee"
+                    android:layout_height="16dp"
+                    android:id="@+id/card_progress" />
+
+                <TextView
+                    android:text="20 days left"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/card_days_text"
+                    android:textAllCaps="true"
+                    android:textStyle="normal|bold" />
+            </LinearLayout>
+
         </LinearLayout>
-
-    </LinearLayout>
-
+    </com.balysv.materialripple.MaterialRippleLayout>
 </android.support.v7.widget.CardView>
