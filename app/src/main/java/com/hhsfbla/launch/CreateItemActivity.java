@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -39,6 +40,7 @@ public class CreateItemActivity extends AppCompatActivity implements AdapterView
         String[] conditions = {"Bad", "Good", "New"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, conditions);
         conditionSelection.setAdapter(adapter);
+        conditionSelection.setOnItemSelectedListener(CreateItemActivity.this);
 
         Button nextButton = (Button) findViewById(R.id.item_create_next_button);
         nextButton.setOnClickListener(new View.OnClickListener() {
@@ -50,9 +52,10 @@ public class CreateItemActivity extends AppCompatActivity implements AdapterView
                 }
                 else {
                     Intent nextPageIntent = new Intent(CreateItemActivity.this, FinishCreateItemActivity.class);
-                    nextPageIntent.putExtra("name", ((TextView)findViewById(R.id.item_name_field)).getText());
-                    nextPageIntent.putExtra("price", ((TextView)findViewById(R.id.item_price_field)).getText());
-                    nextPageIntent.putExtra("description", ((TextView)findViewById(R.id.item_description_field)).getText());
+                    nextPageIntent.putExtra("name", ((TextView)findViewById(R.id.item_name_field)).getText().toString());
+                    Log.d("TEST2", ((TextView)findViewById(R.id.item_price_field)).getText().toString()+"");
+                    nextPageIntent.putExtra("price", ((TextView)findViewById(R.id.item_price_field)).getText().toString());
+                    nextPageIntent.putExtra("description", ((TextView)findViewById(R.id.item_description_field)).getText().toString());
                     nextPageIntent.putExtra("condition", selectedCondition);
                     nextPageIntent.putExtra("uid", uid);
                     nextPageIntent.putExtra("fid", fid);
@@ -64,6 +67,7 @@ public class CreateItemActivity extends AppCompatActivity implements AdapterView
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         String s = (String) parent.getItemAtPosition(pos);
+        Log.d("TEST", s);
         if (s.equals("Bad")) {
             selectedCondition = "Bad";
         } else if (s.equals("Good")) {

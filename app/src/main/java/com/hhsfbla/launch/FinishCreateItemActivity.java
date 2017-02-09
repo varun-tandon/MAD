@@ -10,6 +10,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -47,7 +48,7 @@ public class FinishCreateItemActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_finish_create_item);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.item_finish_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -76,14 +77,22 @@ public class FinishCreateItemActivity extends AppCompatActivity {
             }
         });
 
+        Intent intent = getIntent();
+        final String name = intent.getStringExtra("name");
+        final String uid = intent.getStringExtra("uid");
+        final String fid = intent.getStringExtra("fid");
+        final String price = intent.getStringExtra("price");
+        final String condition = intent.getStringExtra("condition");
+        final String description = intent.getStringExtra("description");
+
+        Log.d("TEST2", name + "  " + price + " "  +condition);
+
         Button launchButton = (Button) findViewById(R.id.launchItemButton);
         launchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    Bundle data = FinishCreateItemActivity.this.getIntent().getExtras();
-                    Item item = new Item(data.getString("uid"),
-                            data.getString("fid"), data.getString("name"),
-                            Double.parseDouble(data.getString("price")), data.getString("condition"), data.getString("description"),
+                    Item item = new Item(uid, fid, name,
+                            Double.parseDouble(price), condition, description,
                             imageBitmap != null ? true : false);
                     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
                     DatabaseReference newRef = database.child("items").push();
@@ -111,7 +120,7 @@ public class FinishCreateItemActivity extends AppCompatActivity {
                         }
                     });
 
-                    Toast.makeText(FinishCreateItemActivity.this, "Fundraiser created", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FinishCreateItemActivity.this, "Item created", Toast.LENGTH_SHORT).show();
             }
         });
     }

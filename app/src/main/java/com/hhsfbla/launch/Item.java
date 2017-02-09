@@ -22,6 +22,10 @@ public class Item {
 
     protected boolean hasBitmap;
 
+    public Item(){
+
+    }
+
     public Item(String uid, String fundraiserID, String name, double price, String condition, String description, boolean hasBitmap) {
         id = "";
         this.uid = uid;

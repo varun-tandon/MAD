@@ -3,8 +3,11 @@ package com.hhsfbla.launch;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +18,8 @@ import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 /**
@@ -50,14 +55,16 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
             card.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(context, BrowseItemsActivity.class);
+                    Intent intent = new Intent(context, ItemActivity.class);
                     intent.putExtra("uid", uid);
                     intent.putExtra("fid", fid);
                     intent.putExtra("condition", condition);
                     intent.putExtra("description", description);
                     intent.putExtra("name", name.getText());
                     intent.putExtra("price", price.getText());
-                    intent.putExtra("image", ((BitmapDrawable)image.getDrawable()).getBitmap());
+                    String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), ((BitmapDrawable)image.getDrawable()).getBitmap(), "", "");
+                    Uri uri = Uri.parse(path);
+                    intent.putExtra(Intent.EXTRA_STREAM, uri);
                     context.startActivity(intent);
                 }
             });
@@ -72,7 +79,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
     @Override
     public ItemRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_layout, parent, false);
+                .inflate(R.layout.card_item_layout, parent, false);
 
         ViewHolder vh = new ViewHolder(v);
         return vh;

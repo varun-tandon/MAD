@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,7 +47,9 @@ public class BrowseItemsActivity extends AppCompatActivity{
         mRecyclerView.setLayoutManager(new LinearLayoutManager(BrowseItemsActivity.this));
         final ArrayList<Item> items = new ArrayList<Item>();
 
-        final StorageReference storageRef = FirebaseStorage.getInstance().getReference("items");
+        final String fid = getIntent().getStringExtra("fid");
+
+        final StorageReference storageRef = FirebaseStorage.getInstance().getReference("item");
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("items");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -55,7 +58,7 @@ public class BrowseItemsActivity extends AppCompatActivity{
 
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     final Item f = child.getValue(Item.class);
-                    if (f.uid.equals(NavDrawerActivity.userID)) {
+                    if (f.fundraiserID.equals(fid)) {
                         storageRef.child(child.getKey() + ".jpg").getBytes(1024 * 1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                             @Override
                             public void onSuccess(byte[] bytes) {

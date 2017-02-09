@@ -67,6 +67,9 @@
         <activity android:name=".CreateItemActivity"
             android:label="Sell an Item"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".FinishCreateItemActivity"
+            android:label="Finish Selling an Item"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="com.braintreepayments.api.BraintreeBrowserSwitchActivity"
             android:launchMode="singleTask">
             <intent-filter>
