@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
+import com.balysv.materialripple.MaterialRippleLayout;
 
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class FundraiserRecyclerViewAdapter extends RecyclerView.Adapter<Fundrais
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public String fid;
         public CardView card;
+        public MaterialRippleLayout cardRipple;
         public ImageView image;
         public TextView name;
         public TextView orgname;
@@ -37,6 +39,7 @@ public class FundraiserRecyclerViewAdapter extends RecyclerView.Adapter<Fundrais
             super(v);
             context = v.getContext();
             card = (CardView) v.findViewById(R.id.card);
+            cardRipple = (MaterialRippleLayout) v.findViewById(R.id.card_ripple);
             image = (ImageView) v.findViewById(R.id.card_image);
             name = (TextView) v.findViewById(R.id.card_name);
             orgname = (TextView) v.findViewById(R.id.card_nonprofit_name);
@@ -69,7 +72,8 @@ public class FundraiserRecyclerViewAdapter extends RecyclerView.Adapter<Fundrais
         holder.orgname.setText(f.organizationName);
         holder.progressText.setText(f.makeProgressString());
         holder.progressBar.setProgress(f.amountRaised * 100f / f.goal);
-        holder.card.setOnClickListener(new View.OnClickListener() {
+        holder.daysLeftText.setText(f.makeDaysRemainingString());
+        holder.cardRipple.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 fragmentJump(f);
