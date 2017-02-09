@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- code sourced from http://stackoverflow.com/questions/7690416/android-border-for-button-->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="10dp"/>
+    <stroke android:width="5px" android:color="#000000" />
+    <solid android:color="#ffffff"/>
+</shape>

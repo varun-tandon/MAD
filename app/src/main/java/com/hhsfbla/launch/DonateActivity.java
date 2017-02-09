@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.braintreepayments.api.dropin.DropInActivity;
 import com.braintreepayments.api.dropin.DropInRequest;
 import com.braintreepayments.api.dropin.DropInResult;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
@@ -28,6 +30,7 @@ public class DonateActivity extends AppCompatActivity {
     final static int REQUEST_CODE = 1;
 
     private EditText donateAmountField;
+    protected int amountRaised;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +47,6 @@ public class DonateActivity extends AppCompatActivity {
 
         donateAmountField = (EditText) findViewById(R.id.donate_amount_field);
         donateAmountField.requestFocus();
-//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         proceedButton.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +99,13 @@ public class DonateActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, String responseBody) {
                     Log.d("Donate", responseBody);
+                    // Write to Firebase
+                    DatabaseReference ref = FirebaseDatabase.getInstance()
+                            .getReference("fundraisers/" + DonateActivity.this.getIntent().getStringExtra("fid"));
+                    ref.child("amountRaised").setValue(DonateActivity.this.getIntent()
+                            .getIntExtra("amountRaised", 0) + Integer.parseInt(donateAmountField
+                            .getText().toString()));
+
                     DialogFragment dialog = new DonationSuccessDialog();
                     dialog.show(getFragmentManager(), "Success");
                 }
@@ -105,6 +114,7 @@ public class DonateActivity extends AppCompatActivity {
                 public void onFailure(int statusCode, Header[] headers, String responseBody, Throwable error) {
                     Log.d("Donate", responseBody);
                     Toast.makeText(DonateActivity.this, responseBody, Toast.LENGTH_LONG).show();
+                    // TODO: handle error
                 }
             }
         );

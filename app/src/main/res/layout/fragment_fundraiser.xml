@@ -74,9 +74,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/homepage_campaign_description"
-                        android:textAllCaps="true"
-                        tools:text="Learn More"
-                        android:textColor="@color/colorAccent" />
+                        android:textAllCaps="false"
+                        tools:text="Description" />
 
                     <TextView
                         android:text="$2,900 raised of $10,000 goal"
@@ -84,7 +83,8 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/progress_text"
                         android:textSize="14sp"
-                        android:layout_marginTop="16dp" />
+                        android:layout_marginTop="16dp"
+                        android:textColor="@color/pb_blue" />
 
                     <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
                         android:layout_width="match_parent"
@@ -96,13 +96,14 @@
                         app:rcProgressColor="#3498db"
                         app:rcBackgroundColor="#eeeeee"
                         android:layout_height="16dp"
-                        android:layout_marginTop="2dp" />
+                        android:layout_marginTop="2dp"
+                        android:id="@+id/fundraiser_progressbar" />
 
                     <TextView
                         android:text="20 days left"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/textView12"
+                        android:id="@+id/daysLeftText"
                         android:textAllCaps="true"
                         android:textStyle="normal|bold" />
 
