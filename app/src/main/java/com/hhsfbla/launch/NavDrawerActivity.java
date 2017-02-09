@@ -115,11 +115,6 @@ public class NavDrawerActivity extends AppCompatActivity
                     .replace(R.id.content_frame, new AccountViewPageFragment()).commit();
 
         }
-        else if (id == R.id.nav_home) {
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction()
-                .replace(R.id.content_frame, new FundraiserFragment()).commit();
-        }
         else if (id == R.id.nav_fundraisers) {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
