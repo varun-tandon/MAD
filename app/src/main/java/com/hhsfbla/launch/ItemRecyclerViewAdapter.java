@@ -27,7 +27,7 @@ import java.util.List;
  */
 
 public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder>  {
-    private List<Item> mDataset;
+    public List<Item> mDataset;
     private Context context;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
