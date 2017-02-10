@@ -45,18 +45,20 @@ public class BrowseFundraisersFragment extends Fragment {
 
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     final Fundraiser f = child.getValue(Fundraiser.class);
-                    f.setId(child.getKey());
-                    storageRef.child(child.getKey() + ".jpg").getBytes(1024 * 1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                        @Override
-                        public void onSuccess(byte[] bytes) {
-                            BitmapFactory.Options options = new BitmapFactory.Options();
-                            options.inSampleSize = 2;
-                            f.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options));
-                            fundraisers.add(f);
-                            mAdapter = new FundraiserRecyclerViewAdapter(getActivity(), fundraisers);
-                            mRecyclerView.setAdapter(mAdapter);
-                        }
-                    });
+                    if (!f.isEnded()) {
+                        f.setId(child.getKey());
+                        storageRef.child(child.getKey() + ".jpg").getBytes(1024 * 1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                            @Override
+                            public void onSuccess(byte[] bytes) {
+                                BitmapFactory.Options options = new BitmapFactory.Options();
+                                options.inSampleSize = 2;
+                                f.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options));
+                                fundraisers.add(f);
+                                mAdapter = new FundraiserRecyclerViewAdapter(getActivity(), fundraisers);
+                                mRecyclerView.setAdapter(mAdapter);
+                            }
+                        });
+                    }
                 }
             }
 

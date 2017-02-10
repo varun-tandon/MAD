@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
+import com.balysv.materialripple.MaterialRippleLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,8 +32,13 @@ public class FundraiserFragment extends Fragment {
 
         // populate page with data
         final Bundle data = getArguments();
+        Bitmap bitmap = (Bitmap)data.getParcelable("bitmap");
         ImageView fundraiserImg = (ImageView) fundraiserView.findViewById(R.id.fundraiser_image);
-        fundraiserImg.setImageBitmap((Bitmap) data.getParcelable("bitmap"));
+        fundraiserImg.setImageBitmap(bitmap);
+        // change background color to average color of image
+        int color = Bitmap.createScaledBitmap(bitmap, 1, 1, false).getPixel(0, 0);
+        fundraiserImg.setBackgroundColor(color);
+
         setTextForTextView(R.id.campaign_title_textview, data.getString("purpose"));
         setTextForTextView(R.id.nonprofit_org_name_textview, data.getString("orgname"));
         setTextForTextView(R.id.homepage_campaign_description, data.getString("description"));
@@ -59,17 +65,18 @@ public class FundraiserFragment extends Fragment {
         });
 
 
-        LinearLayout buy = (LinearLayout) fundraiserView.findViewById(R.id.buy_button);
+        MaterialRippleLayout buy = (MaterialRippleLayout) fundraiserView.findViewById(R.id.buy_button);
         buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent buyIntent = new Intent(getActivity(), BrowseItemsActivity.class);
+                buyIntent.putExtra("uid", uid);
                 buyIntent.putExtra("fid", fid);
                 getActivity().startActivity(buyIntent);
             }
         });
 
-        LinearLayout donateButton = (LinearLayout) fundraiserView.findViewById(R.id.donate_button);
+        MaterialRippleLayout donateButton = (MaterialRippleLayout) fundraiserView.findViewById(R.id.donate_button);
         donateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +88,7 @@ public class FundraiserFragment extends Fragment {
             }
         });
 
-        LinearLayout sellButton = (LinearLayout) fundraiserView.findViewById(R.id.sell_button);
+        MaterialRippleLayout sellButton = (MaterialRippleLayout) fundraiserView.findViewById(R.id.sell_button);
         sellButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent sellIntent = new Intent(getActivity(), CreateItemActivity.class);

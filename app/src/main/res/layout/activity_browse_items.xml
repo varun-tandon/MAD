@@ -34,14 +34,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/progressBar4"
-            android:layout_marginTop="86dp" />
+            android:layout_marginTop="58dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/browse_items_empty"
+            android:layout_gravity="top"
+            android:layout_marginTop="60dp" />
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/browse_items_recycler"
             android:layout_gravity="top"
             android:background="?android:attr/colorBackground" />
+
 
     </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>

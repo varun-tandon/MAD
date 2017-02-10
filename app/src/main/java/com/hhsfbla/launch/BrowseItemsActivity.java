@@ -1,5 +1,6 @@
 package com.hhsfbla.launch;
 
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,10 +8,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +25,9 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
+import static android.R.attr.colorBackground;
+import static android.R.attr.width;
+
 /**
  * Created by zhenfangchen on 2/6/17.
  */
@@ -32,6 +37,7 @@ public class BrowseItemsActivity extends AppCompatActivity{
     private View browseItemsView;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
+    private boolean empty = true;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +61,6 @@ public class BrowseItemsActivity extends AppCompatActivity{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 items.clear();
-
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     final Item f = child.getValue(Item.class);
                     if (f.fundraiserID.equals(fid)) {
@@ -68,6 +73,9 @@ public class BrowseItemsActivity extends AppCompatActivity{
                                 items.add(f);
                                 mAdapter = new ItemRecyclerViewAdapter(BrowseItemsActivity.this, items);
                                 mRecyclerView.setAdapter(mAdapter);
+                                if (mAdapter.getItemCount() > 0) {
+                                    ((LinearLayout) findViewById(R.id.browse_items_empty)).removeAllViews();
+                                }
                             }
                         });
                     }
@@ -79,9 +87,36 @@ public class BrowseItemsActivity extends AppCompatActivity{
 
             }
         });
-
+        addEmptyItemsMessage();
         mAdapter = new ItemRecyclerViewAdapter(BrowseItemsActivity.this, items);
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    private void addEmptyItemsMessage() {
+        if (empty) {
+            TextView message = new TextView(BrowseItemsActivity.this);
+            message.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            message.setText("Darn, seems like there is nothing for sale.");
+            TextView message2 = new TextView(BrowseItemsActivity.this);
+            message2.setText("");
+            Button sellButton = new Button(BrowseItemsActivity.this);
+            sellButton.setText("Sell an item!");
+            sellButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent sellIntent = new Intent(BrowseItemsActivity.this, CreateItemActivity.class);
+                    sellIntent.putExtra("uid", getIntent().getStringExtra("uid"));
+                    sellIntent.putExtra("fid", getIntent().getStringExtra("fid"));
+                    BrowseItemsActivity.this.startActivity(sellIntent);
+                }
+            });
+//            mRecyclerView.setBackground(null);
+            LinearLayout ll = (LinearLayout) findViewById(R.id.browse_items_empty);
+            ll.setBackgroundColor(getResources().getColor(R.color.pb_white));
+            ll.addView(message);
+            ll.addView(message2);
+            ll.addView(sellButton);
+
+        }
     }
 
 

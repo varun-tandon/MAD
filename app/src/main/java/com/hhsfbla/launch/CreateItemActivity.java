@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,6 +13,9 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * Created by zhenfangchen on 2/7/17.
@@ -37,9 +41,10 @@ public class CreateItemActivity extends AppCompatActivity implements AdapterView
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         final Spinner conditionSelection = (Spinner) findViewById(R.id.item_spinner);
-        String[] conditions = {"Bad", "Good", "New"};
+        String[] conditions = {"Poor", "Acceptable", "Used - Good", "Used - Like New", "New"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, conditions);
         conditionSelection.setAdapter(adapter);
+        conditionSelection.setSelection(4);
         conditionSelection.setOnItemSelectedListener(CreateItemActivity.this);
 
         Button nextButton = (Button) findViewById(R.id.item_create_next_button);
@@ -57,7 +62,9 @@ public class CreateItemActivity extends AppCompatActivity implements AdapterView
                     nextPageIntent.putExtra("price", ((TextView)findViewById(R.id.item_price_field)).getText().toString());
                     nextPageIntent.putExtra("description", ((TextView)findViewById(R.id.item_description_field)).getText().toString());
                     nextPageIntent.putExtra("condition", selectedCondition);
-                    nextPageIntent.putExtra("uid", uid);
+                    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                    final FirebaseUser user = mAuth.getCurrentUser();
+                    nextPageIntent.putExtra("uid", user.getUid());
                     nextPageIntent.putExtra("fid", fid);
                     CreateItemActivity.this.startActivity(nextPageIntent);
                 }
@@ -67,11 +74,14 @@ public class CreateItemActivity extends AppCompatActivity implements AdapterView
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         String s = (String) parent.getItemAtPosition(pos);
-        Log.d("TEST", s);
-        if (s.equals("Bad")) {
-            selectedCondition = "Bad";
-        } else if (s.equals("Good")) {
-            selectedCondition = "Good";
+        if (s.equals("Poor")) {
+            selectedCondition = "Poor";
+        } else if (s.equals("Acceptable")) {
+            selectedCondition = "Acceptable";
+        } else if (s.equals("Used - Good")) {
+            selectedCondition = "Used - Good";
+        } else if (s.equals("Used - Like New")) {
+            selectedCondition = "Used - Like New";
         } else if (s.equals("New")) {
             selectedCondition = "New";
         }
@@ -80,5 +90,17 @@ public class CreateItemActivity extends AppCompatActivity implements AdapterView
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish(); // back button
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
 }

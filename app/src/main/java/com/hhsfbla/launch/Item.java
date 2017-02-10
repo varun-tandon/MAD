@@ -22,6 +22,8 @@ public class Item {
 
     protected boolean hasBitmap;
 
+    protected int numOfComments = 0;
+
     public Item(){
 
     }
