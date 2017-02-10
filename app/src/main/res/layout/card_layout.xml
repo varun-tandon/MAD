@@ -30,7 +30,9 @@
                 android:layout_height="143dp"
                 app:srcCompat="@drawable/image_placeholder"
                 android:id="@+id/card_image"
-                android:background="#ddd" />
+                android:background="#ddd"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="false" />
 
             <LinearLayout
                 android:orientation="vertical"

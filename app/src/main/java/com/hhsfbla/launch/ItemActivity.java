@@ -72,6 +72,9 @@ public class ItemActivity extends AppCompatActivity{
         try {
             bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
             itemImage.setImageBitmap(bitmap);
+            // set image background to average color of image
+            int color = Bitmap.createScaledBitmap(bitmap, 1, 1, false).getPixel(0, 0);
+            itemImage.setBackgroundColor(color);
         } catch (IOException io) {
             io.printStackTrace();
         }

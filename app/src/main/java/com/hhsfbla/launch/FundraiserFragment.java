@@ -31,8 +31,13 @@ public class FundraiserFragment extends Fragment {
 
         // populate page with data
         final Bundle data = getArguments();
+        Bitmap bitmap = (Bitmap)data.getParcelable("bitmap");
         ImageView fundraiserImg = (ImageView) fundraiserView.findViewById(R.id.fundraiser_image);
-        fundraiserImg.setImageBitmap((Bitmap) data.getParcelable("bitmap"));
+        fundraiserImg.setImageBitmap(bitmap);
+        // change background color to average color of image
+        int color = Bitmap.createScaledBitmap(bitmap, 1, 1, false).getPixel(0, 0);
+        fundraiserImg.setBackgroundColor(color);
+
         setTextForTextView(R.id.campaign_title_textview, data.getString("purpose"));
         setTextForTextView(R.id.nonprofit_org_name_textview, data.getString("orgname"));
         setTextForTextView(R.id.homepage_campaign_description, data.getString("description"));

@@ -96,8 +96,13 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         holder.fid = mDataset.get(position).fundraiserID;
         holder.condition = mDataset.get(position).condition;
         holder.description = mDataset.get(position).description;
-
         holder.image.setImageBitmap(mDataset.get(position).imageBitmap);
+
+        // set background color to average color of bitmap
+        Bitmap bitmap = ((BitmapDrawable)holder.image.getDrawable()).getBitmap();
+        int color = Bitmap.createScaledBitmap(bitmap, 1, 1, false).getPixel(0, 0);
+        holder.image.setBackgroundColor(color);
+
         holder.name.setText(mDataset.get(position).name);
         holder.price.setText("$" + String.format("%.2f", mDataset.get(position).price));
     }

@@ -14,7 +14,7 @@
     tools:showIn="@layout/activity_finish_create_fundraiser">
 
     <TextView
-        android:text="Add a photo"
+        android:text="Add a photo (landscape works best!)"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
