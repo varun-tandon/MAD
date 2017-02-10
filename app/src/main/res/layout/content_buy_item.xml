@@ -46,11 +46,11 @@
                     android:weightSum="1">
 
                     <ImageView
-                        android:layout_width="64dp"
                         android:layout_height="65dp"
                         app:srcCompat="@drawable/image_placeholder"
                         android:id="@+id/imageView3"
-                        android:layout_margin="10dp" />
+                        android:layout_margin="10dp"
+                        android:layout_width="65dp" />
 
                     <LinearLayout
                         android:orientation="vertical"

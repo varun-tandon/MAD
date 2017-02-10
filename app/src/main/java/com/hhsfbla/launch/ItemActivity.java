@@ -50,6 +50,7 @@ public class ItemActivity extends AppCompatActivity{
     private Fundraiser fundraiser;
 
     private String sellerName;
+    private Bitmap bitmap;
     private int numComments = 0;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,17 +68,18 @@ public class ItemActivity extends AppCompatActivity{
         uid = intent.getStringExtra("uid");
 
         ImageView itemImage = (ImageView)findViewById(R.id.item_picture);
-        Uri imageUri = (Uri)intent.getExtras().get(Intent.EXTRA_STREAM);
-        Bitmap bitmap;
+        final Uri imageUri = (Uri)intent.getExtras().get(Intent.EXTRA_STREAM);
         try {
-           bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
             itemImage.setImageBitmap(bitmap);
         } catch (IOException io) {
             io.printStackTrace();
         }
 
-        ((TextView)findViewById(R.id.item_name)).setText(intent.getStringExtra("name"));
-        ((TextView)findViewById(R.id.item_price)).setText(intent.getStringExtra("price"));
+        final String itemName = intent.getStringExtra("name");
+        final String price = intent.getStringExtra("price");
+        ((TextView)findViewById(R.id.item_name)).setText(itemName);
+        ((TextView)findViewById(R.id.item_price)).setText(price);
         ((TextView)findViewById(R.id.item_description)).setText(intent.getStringExtra("description"));
 
         Button condition = (Button) findViewById(R.id.item_condition);
@@ -130,10 +132,16 @@ public class ItemActivity extends AppCompatActivity{
             public void onCancelled(DatabaseError databaseError) {}
         });
         Button buy = (Button) findViewById(R.id.item_buy);
+        final Bitmap imageBitmap = bitmap;
         buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent buyIntent = new Intent(ItemActivity.this, BuyItemActivity.class);
+                buyIntent.putExtra("fid", fid);
+                buyIntent.putExtra("amount", price);
+                buyIntent.putExtra("itemName", itemName);
+                buyIntent.putExtra("image", imageBitmap);
+                ItemActivity.this.startActivity(buyIntent);
             }
         });
 
