@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.Timer;
 
 /**
  * Created by Varun on 2/5/2017.
@@ -83,6 +84,7 @@ public class SplashActivity extends AppCompatActivity{
             finish();
 
         }
+
 
     }
 }
