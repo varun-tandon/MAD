@@ -92,24 +92,15 @@ public class ItemActivity extends AppCompatActivity{
         }
         condition.setText(conditionText);
 
-<<<<<<< HEAD
-        databaseReference = FirebaseDatabase.getInstance().getReference("fundraisers").child(fid);
-=======
         databaseReference = FirebaseDatabase.getInstance().getReference("fundraisers/" + fid);
->>>>>>> origin/master
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 fundraiser = dataSnapshot.getValue(Fundraiser.class);
-<<<<<<< HEAD
-
                 ((TextView)findViewById(R.id.item_fundraiser_name)).setText(fundraiser.organizationName);
-                ((ImageView)findViewById(R.id.item_seller_picture)).setImageBitmap(fundraiser.imageBitmap);
-=======
                 ((TextView)findViewById(R.id.item_fundraiser_name))
                         .setText(fundraiser.purpose + " fundraiser hosted by "
                                 + fundraiser.organizationName);
->>>>>>> origin/master
             }
 
             @Override
@@ -118,28 +109,26 @@ public class ItemActivity extends AppCompatActivity{
             }
         });
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("users").child(uid).child("full_name");
+        databaseReference = FirebaseDatabase.getInstance().getReference("items").child(id).child("uid");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-<<<<<<< HEAD
-                sellerName = (String) dataSnapshot.getValue();
-=======
-                sellerName = dataSnapshot.getValue(String.class);
->>>>>>> origin/master
-                ((TextView)findViewById(R.id.item_seller_name)).setText(sellerName);
+                String owner_uid = dataSnapshot.getValue(String.class);
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users")
+                        .child(owner_uid).child("full_name");
+                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        sellerName = dataSnapshot.getValue(String.class);
+                        ((TextView)findViewById(R.id.item_seller_name)).setText(sellerName);
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {}
+                });
             }
-
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
-
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
         Button buy = (Button) findViewById(R.id.item_buy);
         buy.setOnClickListener(new View.OnClickListener() {
             @Override

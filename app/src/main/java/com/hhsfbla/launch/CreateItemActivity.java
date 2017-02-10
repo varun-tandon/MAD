@@ -14,6 +14,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 /**
  * Created by zhenfangchen on 2/7/17.
  */
@@ -41,7 +44,7 @@ public class CreateItemActivity extends AppCompatActivity implements AdapterView
         String[] conditions = {"Poor", "Acceptable", "Used - Good", "Used - Like New", "New"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, conditions);
         conditionSelection.setAdapter(adapter);
-        conditionSelection.setSelection(0);
+        conditionSelection.setSelection(4);
         conditionSelection.setOnItemSelectedListener(CreateItemActivity.this);
 
         Button nextButton = (Button) findViewById(R.id.item_create_next_button);
@@ -59,7 +62,9 @@ public class CreateItemActivity extends AppCompatActivity implements AdapterView
                     nextPageIntent.putExtra("price", ((TextView)findViewById(R.id.item_price_field)).getText().toString());
                     nextPageIntent.putExtra("description", ((TextView)findViewById(R.id.item_description_field)).getText().toString());
                     nextPageIntent.putExtra("condition", selectedCondition);
-                    nextPageIntent.putExtra("uid", uid);
+                    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                    final FirebaseUser user = mAuth.getCurrentUser();
+                    nextPageIntent.putExtra("uid", user.getUid());
                     nextPageIntent.putExtra("fid", fid);
                     CreateItemActivity.this.startActivity(nextPageIntent);
                 }
