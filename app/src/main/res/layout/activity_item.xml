@@ -30,9 +30,11 @@
         android:layout_marginTop="56dp">
 
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+
+        <com.nirhart.parallaxscroll.views.ParallaxScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            app:parallax_factor="1.9">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -52,9 +54,8 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp">
+                    android:padding="17dp"
+                    android:background="#fff">
 
 
                     <TextView
@@ -247,6 +248,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-        </ScrollView>
+        </com.nirhart.parallaxscroll.views.ParallaxScrollView>
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

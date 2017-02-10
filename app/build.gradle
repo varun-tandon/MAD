@@ -43,6 +43,7 @@ dependencies {
     compile 'com.braintreepayments.api:drop-in:3.+'
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.balysv:material-ripple:1.0.1'
+    compile 'com.github.nirhart:parallaxscroll:1.0'
 }
 
 
