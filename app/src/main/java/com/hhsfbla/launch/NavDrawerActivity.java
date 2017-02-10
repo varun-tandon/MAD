@@ -2,8 +2,11 @@ package com.hhsfbla.launch;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.FragmentManager;
+import android.os.Environment;
 import android.support.design.widget.NavigationView;
 import android.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -13,11 +16,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.Date;
 
 public class NavDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -94,11 +102,41 @@ public class NavDrawerActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        if(id == R.id.menu_item_share){
+//            takeScreenshot();
+//            String externalStorageDirectory = Environment.getExternalStorageDirectory().toString();
+//            Uri uri = Uri.fromFile(new File(Environment.getExternalStorageDirectory().toString() + "/" +  "lastScreen.jpg"));
+//            Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+//            shareIntent.setType("text/html");
+//            shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Test Mail");
+//            shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Launcher");
+//            shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+//            startActivity(Intent.createChooser(shareIntent, "Share Deal"));
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            takeScreenshot();
+            Uri imageUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory().toString() + "/" +  "lastScreen.jpg"));
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "I'm contributing to causes I believe in using Launch; join me in my efforts! #Launch");
+            shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+            shareIntent.setType("image/jpeg");
+            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            startActivity(Intent.createChooser(shareIntent, "send"));
+
+
+
+
+//            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+//            sharingIntent.setType("image/jpeg");
+//            String shareBody = "I'm contributing to causes I believe in using Launch; join me in my efforts! #Launch";
+//            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Launch");
+//            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+//            takeScreenshot();
+//            sharingIntent.putExtra(Intent.EXTRA_STREAM, )));
+//            startActivity(Intent.createChooser(sharingIntent, "Share via"));
         }
+        //noinspection SimplifiableIfStatement
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -147,5 +185,32 @@ public class NavDrawerActivity extends AppCompatActivity
         ft.replace(id, fragment, fragment.toString());
         ft.addToBackStack(null);
         ft.commit();
+    }
+    private void takeScreenshot() {
+        Date now = new Date();
+        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
+
+        try {
+            // image naming and path  to include sd card  appending name you choose for file
+            String mPath = Environment.getExternalStorageDirectory().toString() + "/" +  "lastScreen.jpg";
+
+            // create bitmap screen capture
+            View v1 = getWindow().getDecorView().getRootView();
+            v1.setDrawingCacheEnabled(true);
+            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+            v1.setDrawingCacheEnabled(false);
+
+            File imageFile = new File(mPath);
+
+            FileOutputStream outputStream = new FileOutputStream(imageFile);
+            int quality = 100;
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
+            outputStream.flush();
+            outputStream.close();
+
+        } catch (Throwable e) {
+            // Several error may come out with file handling or OOM
+            e.printStackTrace();
+        }
     }
 }

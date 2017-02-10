@@ -17,13 +17,26 @@ public class IntroductionScene extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_introduction_scene);
+
         vs = (ViewFlipper) findViewById(R.id.view_switcher_intro);
+
+        hideSystemUI();
+
         final ImageView intro1 = new ImageView(getBaseContext());
+        intro1.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        intro1.setAdjustViewBounds(true);
+
         intro1.setBackgroundResource(R.drawable.intro_page_1);
         final ImageView intro2 = new ImageView(getBaseContext());
+        intro2.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        intro2.setAdjustViewBounds(true);
         intro2.setBackgroundResource(R.drawable.intro_page_2);
         final ImageView intro3 = new ImageView(getBaseContext());
+        intro3.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        intro3.setAdjustViewBounds(true);
+
         intro3.setBackgroundResource(R.drawable.intro_page_3);
+
         vs.addView(intro1);
         vs.addView(intro2);
         vs.addView(intro3);
@@ -90,5 +103,17 @@ public class IntroductionScene extends AppCompatActivity {
 //        vs.showNext();
 
 
+    }
+    private void hideSystemUI(){
+        // Set the IMMERSIVE flag.
+        // Set the content to appear under the system bars so that the content
+        // doesn't resize when the system bars hide and show.
+        findViewById(R.id.view_switcher_intro).setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
     }
 }

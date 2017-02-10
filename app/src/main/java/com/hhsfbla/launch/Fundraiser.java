@@ -20,7 +20,7 @@ public class Fundraiser implements Serializable{
     protected String organizationName;
     protected String purpose;
     protected int goal;
-    protected String deadline;
+    protected String deadline = "";
     protected String description;
     protected boolean hasImage;
     protected int amountRaised;
