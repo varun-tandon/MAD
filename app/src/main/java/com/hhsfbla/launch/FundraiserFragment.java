@@ -64,6 +64,7 @@ public class FundraiserFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent buyIntent = new Intent(getActivity(), BrowseItemsActivity.class);
+                buyIntent.putExtra("uid", uid);
                 buyIntent.putExtra("fid", fid);
                 getActivity().startActivity(buyIntent);
             }

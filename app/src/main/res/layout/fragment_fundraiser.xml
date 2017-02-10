@@ -28,12 +28,12 @@
             android:layout_height="match_parent">
 
             <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_height="135dp"
                 app:srcCompat="@drawable/image_placeholder"
                 android:id="@+id/fundraiser_image"
                 android:layout_alignParentEnd="true"
                 android:background="#ddd"
-                android:layout_width="match_parent" />
+                android:layout_width="match_parent"
+                android:layout_height="150dp" />
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:app="http://schemas.android.com/apk/res-auto"

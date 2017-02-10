@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
+import com.balysv.materialripple.MaterialRippleLayout;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -37,7 +38,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         public String condition;
         public String description;
         public CardView card;
-
+        public MaterialRippleLayout cardRipple;
         public ImageView image;
         public TextView name;
         public TextView price;
@@ -48,12 +49,13 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
             super(v);
             context = v.getContext();
             card = (CardView) v.findViewById(R.id.item_card);
+            cardRipple = (MaterialRippleLayout) v.findViewById(R.id.card_item_ripple);
             image = (ImageView) v.findViewById(R.id.item_card_image);
             name = (TextView) v.findViewById(R.id.item_card_name);
             price = (TextView) v.findViewById(R.id.item_card_price);
 
             //code influenced by http://stackoverflow.com/questions/28767413/how-to-open-a-different-activity-on-recyclerview-item-onclick
-            card.setOnClickListener(new View.OnClickListener() {
+            cardRipple.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context, ItemActivity.class);
@@ -97,8 +99,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
 
         holder.image.setImageBitmap(mDataset.get(position).imageBitmap);
         holder.name.setText(mDataset.get(position).name);
-        holder.price.setText("$"+String.format("%.2f", mDataset.get(position).price)+"");
-        //"$"+String.format("%.2f",Double.parseDouble(intent.getStringExtra("price")))
+        holder.price.setText("$" + String.format("%.2f", mDataset.get(position).price));
     }
 
     public void switchContent(int id, Fragment fragment) {

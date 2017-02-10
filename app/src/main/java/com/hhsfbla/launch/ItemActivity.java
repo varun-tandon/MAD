@@ -80,33 +80,25 @@ public class ItemActivity extends AppCompatActivity{
         ((TextView)findViewById(R.id.item_description)).setText(intent.getStringExtra("description"));
 
         Button condition = (Button) findViewById(R.id.item_condition);
-        if (intent.getStringExtra("condition").equals("Poor")) {
-            condition.setText("Poor");
-            //condition.setTextColor(Color.RED);
-        } else if (intent.getStringExtra("condition").equals("Acceptable")) {
-            condition.setText("Acceptable");
-            //condition.setTextColor(Color.rgb(255, 153, 0)); //orange
-        } else if (intent.getStringExtra("condition").equals("Used - Good")) {
-            condition.setText("Used - Good");
-            //condition.setTextColor(Color.GREEN);
-        } else if (intent.getStringExtra("condition").equals("Used - Like New")) {
-            condition.setText("Used - Like New");
-            //condition.setTextColor(Color.GREEN);
-        } else if (intent.getStringExtra("condition").equals("New")) {
-            condition.setText("New");
-           // condition.setTextColor(Color.GREEN);
+        String conditionText = intent.getStringExtra("condition");
+        if (conditionText.equals("Poor")) {
+            condition.setBackgroundColor(getResources().getColor(R.color.pb_red_dark));
+        } else if (conditionText.equals("New") || conditionText.contains("Good") ||
+                conditionText.contains("Like New")) {
+            condition.setBackgroundColor(getResources().getColor(R.color.pb_green));
+        } else if (conditionText.equals("Acceptable")) {
+            condition.setBackgroundColor(getResources().getColor(R.color.pb_orange));
         }
+        condition.setText(conditionText);
 
-        /*databaseReference = FirebaseDatabase.getInstance().getReference("fundraisers");
+        databaseReference = FirebaseDatabase.getInstance().getReference("fundraisers/" + fid);
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("TEST4", dataSnapshot.getKey()+"");
                 fundraiser = dataSnapshot.getValue(Fundraiser.class);
-
-                ((TextView)findViewById(R.id.item_fundraiser_name)).setText(fundraiser.organizationName);
-                ((ImageView)findViewById(R.id.item_seller_picture)).setImageBitmap(fundraiser.imageBitmap);
-                ((TextView)findViewById(R.id.item_seller_name)).setText(sellerName);
+                ((TextView)findViewById(R.id.item_fundraiser_name))
+                        .setText(fundraiser.purpose + " fundraiser hosted by "
+                                + fundraiser.organizationName);
             }
 
             @Override
@@ -120,6 +112,7 @@ public class ItemActivity extends AppCompatActivity{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 sellerName = dataSnapshot.getValue(String.class);
+                ((TextView)findViewById(R.id.item_seller_name)).setText(sellerName);
             }
 
             @Override
@@ -128,13 +121,6 @@ public class ItemActivity extends AppCompatActivity{
             }
         });
 
-<<<<<<< HEAD
-        ((TextView)findViewById(R.id.item_fundraiser_name)).setText(fundraiser.organizationName);
-        ((ImageView)findViewById(R.id.item_seller_picture)).setImageBitmap(fundraiser.imageBitmap);
-        ((TextView)findViewById(R.id.item_seller_name)).setText(sellerName);*/
-
-=======
->>>>>>> origin/master
         Button buy = (Button) findViewById(R.id.item_buy);
         buy.setOnClickListener(new View.OnClickListener() {
             @Override
