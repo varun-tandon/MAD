@@ -50,6 +50,7 @@ public class ItemActivity extends AppCompatActivity{
     private Fundraiser fundraiser;
 
     private String sellerName;
+    private int numComments = 0;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,7 +98,7 @@ public class ItemActivity extends AppCompatActivity{
            // condition.setTextColor(Color.GREEN);
         }
 
-        /*databaseReference = FirebaseDatabase.getInstance().getReference("fundraisers");
+        databaseReference = FirebaseDatabase.getInstance().getReference("fundraisers").child(fid);
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -106,7 +107,6 @@ public class ItemActivity extends AppCompatActivity{
 
                 ((TextView)findViewById(R.id.item_fundraiser_name)).setText(fundraiser.organizationName);
                 ((ImageView)findViewById(R.id.item_seller_picture)).setImageBitmap(fundraiser.imageBitmap);
-                ((TextView)findViewById(R.id.item_seller_name)).setText(sellerName);
             }
 
             @Override
@@ -119,7 +119,8 @@ public class ItemActivity extends AppCompatActivity{
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                sellerName = dataSnapshot.getValue(String.class);
+                sellerName = (String) dataSnapshot.getValue();
+                ((TextView)findViewById(R.id.item_seller_name)).setText(sellerName);
             }
 
             @Override
@@ -128,13 +129,7 @@ public class ItemActivity extends AppCompatActivity{
             }
         });
 
-<<<<<<< HEAD
-        ((TextView)findViewById(R.id.item_fundraiser_name)).setText(fundraiser.organizationName);
-        ((ImageView)findViewById(R.id.item_seller_picture)).setImageBitmap(fundraiser.imageBitmap);
-        ((TextView)findViewById(R.id.item_seller_name)).setText(sellerName);*/
 
-=======
->>>>>>> origin/master
         Button buy = (Button) findViewById(R.id.item_buy);
         buy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,8 +148,24 @@ public class ItemActivity extends AppCompatActivity{
                 if (((EditText)(findViewById(R.id.item_addComment))).getText().length() == 0) {
 
                 } else {
+                    DatabaseReference itemReference = FirebaseDatabase.getInstance().getReference("items").child(id);
+                    itemReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Item i = dataSnapshot.getValue(Item.class);
+                            numComments = i.numOfComments;
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                    numComments += 1;
+                    itemReference.child("numOfComments").setValue(numComments);
+
                     databaseReference = FirebaseDatabase.getInstance().getReference("comments");
-                    ItemComment comment = new ItemComment(uid, "Bob", id, ((EditText)findViewById(R.id.item_addComment)).getText().toString(), 0);
+                    ItemComment comment = new ItemComment(NavDrawerActivity.userID, sellerName, id, ((EditText)findViewById(R.id.item_addComment)).getText().toString(), numComments);
                     DatabaseReference newReference = databaseReference.push();
                     newReference.setValue(comment);
                     hideSoftKeyboard(ItemActivity.this, addComment);
@@ -181,6 +192,8 @@ public class ItemActivity extends AppCompatActivity{
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                ((LinearLayout)findViewById(R.id.item_comments)).removeAllViews();
+
                 ArrayList<ItemComment> comments = new ArrayList<ItemComment>();
                 for (DataSnapshot data: dataSnapshot.getChildren()) {
                     final ItemComment comment = data.getValue(ItemComment.class);
