@@ -24,12 +24,10 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/image_placeholder"
+        app:srcCompat="@drawable/camera"
         android:layout_below="@+id/textView6"
         android:layout_marginTop="19dp"
         android:id="@+id/item_imagePreview"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="311dp"
         android:background="@android:color/white"
         android:padding="5dp"
         android:cropToPadding="false"

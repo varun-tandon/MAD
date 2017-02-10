@@ -1,5 +1,6 @@
 package com.hhsfbla.launch;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -39,9 +40,11 @@ public class FinishCreateItemActivity extends AppCompatActivity {
 
     final static int SELECT_PHOTO = 1;
     final static int REQUEST_IMAGE_CAPTURE = 2;
+    final static int PIC_CROP = 3;
     private ImageView imagePreview;
     private Bitmap imageBitmap;
     private StorageReference storageRef;
+    private Uri imageUri;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +77,7 @@ public class FinishCreateItemActivity extends AppCompatActivity {
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
                 photoPickerIntent.setType("image/*");
                 startActivityForResult(photoPickerIntent, SELECT_PHOTO);
+
             }
         });
 
@@ -103,7 +107,7 @@ public class FinishCreateItemActivity extends AppCompatActivity {
                     StorageReference imageRef = storageRef.child("item/" + newRef.getKey() + ".jpg");
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     imageBitmap = ((BitmapDrawable)imagePreview.getDrawable()).getBitmap();
-                    imageBitmap.compress(Bitmap.CompressFormat.JPEG, 10, baos);
+                    imageBitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
                     byte[] imgData = baos.toByteArray();
                     UploadTask uploadTask = imageRef.putBytes(imgData);
                     uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -131,16 +135,8 @@ public class FinishCreateItemActivity extends AppCompatActivity {
         switch(requestCode) {
             case SELECT_PHOTO:
                 if(resultCode == RESULT_OK) {
-                    try {
-                        final Uri imageUri = imageReturnedIntent.getData();
-                        final InputStream imageStream = getContentResolver().openInputStream(imageUri);
-                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                        imagePreview.setImageBitmap(selectedImage);
-                        imageBitmap = BitmapFactory.decodeStream(imageStream);
-                        Toast.makeText(FinishCreateItemActivity.this, "Image selected", Toast.LENGTH_SHORT).show();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
+                    imageUri = imageReturnedIntent.getData();
+                    crop(imageUri);
                 }
                 break;
             case REQUEST_IMAGE_CAPTURE:
@@ -150,6 +146,47 @@ public class FinishCreateItemActivity extends AppCompatActivity {
                     imagePreview.setImageBitmap(imageBitmap);
                     Toast.makeText(FinishCreateItemActivity.this, "Image taken", Toast.LENGTH_SHORT).show();
                 }
+                break;
+            case PIC_CROP:
+                final InputStream imageStream;
+                try {
+                    imageStream = getContentResolver().openInputStream(imageUri);
+                    final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                    imagePreview.setImageBitmap(selectedImage);
+                    imageBitmap = BitmapFactory.decodeStream(imageStream);
+                    Toast.makeText(FinishCreateItemActivity.this, "Image selected", Toast.LENGTH_SHORT).show();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+        }
+    }
+
+    // from https://code.tutsplus.com/tutorials/capture-and-crop-an-image-with-the-device-camera--mobile-11458
+    private void crop(Uri picUri) {
+        try {
+            //call the standard crop action intent (the user device may not support it)
+            Intent cropIntent = new Intent("com.android.camera.action.CROP");
+            //indicate image type and Uri
+            cropIntent.setDataAndType(picUri, "image/*");
+            //set crop properties
+            cropIntent.putExtra("crop", "true");
+            //indicate aspect of desired crop
+            cropIntent.putExtra("aspectX", 1);
+            cropIntent.putExtra("aspectY", 1);
+            //indicate output X and Y
+            cropIntent.putExtra("outputX", 800);
+            cropIntent.putExtra("outputY", 800);
+            //retrieve data on return
+            cropIntent.putExtra("return-data", true);
+            //start the activity - we handle returning in onActivityResult
+            startActivityForResult(cropIntent, PIC_CROP);
+        }
+        catch(ActivityNotFoundException anfe){
+            //display an error message
+            String errorMessage = "Whoops - your device doesn't support the crop action!";
+            Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 

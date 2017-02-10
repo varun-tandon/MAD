@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -40,6 +41,7 @@ public class CreateItemActivity extends AppCompatActivity implements AdapterView
         String[] conditions = {"Poor", "Acceptable", "Used - Good", "Used - Like New", "New"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, conditions);
         conditionSelection.setAdapter(adapter);
+        conditionSelection.setSelection(0);
         conditionSelection.setOnItemSelectedListener(CreateItemActivity.this);
 
         Button nextButton = (Button) findViewById(R.id.item_create_next_button);
@@ -83,5 +85,17 @@ public class CreateItemActivity extends AppCompatActivity implements AdapterView
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish(); // back button
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
 }
