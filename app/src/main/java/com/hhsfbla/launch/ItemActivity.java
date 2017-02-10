@@ -85,6 +85,10 @@ public class ItemActivity extends AppCompatActivity{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d("TEST4", dataSnapshot.getKey()+"");
                 fundraiser = dataSnapshot.getValue(Fundraiser.class);
+
+                ((TextView)findViewById(R.id.item_fundraiser_name)).setText(fundraiser.organizationName);
+                ((ImageView)findViewById(R.id.item_seller_picture)).setImageBitmap(fundraiser.imageBitmap);
+                ((TextView)findViewById(R.id.item_seller_name)).setText(sellerName);
             }
 
             @Override
@@ -105,10 +109,6 @@ public class ItemActivity extends AppCompatActivity{
 
             }
         });
-
-        ((TextView)findViewById(R.id.item_fundraiser_name)).setText(fundraiser.organizationName);
-        ((ImageView)findViewById(R.id.item_seller_picture)).setImageBitmap(fundraiser.imageBitmap);
-        ((TextView)findViewById(R.id.item_seller_name)).setText(sellerName);
 
         Button buy = (Button) findViewById(R.id.item_buy);
         buy.setOnClickListener(new View.OnClickListener() {
