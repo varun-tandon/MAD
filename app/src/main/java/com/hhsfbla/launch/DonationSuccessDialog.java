@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -31,7 +32,9 @@ public class DonationSuccessDialog extends DialogFragment {
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
-        builder.setView(inflater.inflate(R.layout.fragment_donation_success_dialog, null))
+        View v = inflater.inflate(R.layout.fragment_donation_success_dialog, null);
+        String text = getArguments().getString("text");
+        builder.setView(v)
             // Add action buttons
             .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                 @Override
@@ -39,8 +42,8 @@ public class DonationSuccessDialog extends DialogFragment {
                     getActivity().finish();
                 }
             });
+        ((TextView) v.findViewById(R.id.donation_success_text)).setText(text);
 
-//        TODO: add actual data change dialog text
 
 
 //        TODO: learn how to animate

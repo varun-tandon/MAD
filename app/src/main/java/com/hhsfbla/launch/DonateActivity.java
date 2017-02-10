@@ -91,7 +91,7 @@ public class DonateActivity extends AppCompatActivity {
     void postNonceToServer(String nonce) {
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
-        float amount = Float.parseFloat(donateAmountField.getText().toString());
+        final int amount = Integer.parseInt(donateAmountField.getText().toString());
         params.put("payment_method_nonce", nonce);
         params.put("amount", amount);
         client.post("http://mad2017.hhsfbla.com/braintree/checkout.php", params,
@@ -107,6 +107,10 @@ public class DonateActivity extends AppCompatActivity {
                             .getText().toString()));
 
                     DialogFragment dialog = new DonationSuccessDialog();
+                    Bundle b = new Bundle();
+                    b.putString("text", "$" + amount + " donated."
+                            + " A receipt has been sent to your email.");
+                    dialog.setArguments(b);
                     dialog.show(getFragmentManager(), "Success");
                 }
 
