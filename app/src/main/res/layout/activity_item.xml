@@ -188,6 +188,51 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/item_comments">
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textMultiLine"
+                            android:hint="Add a comment"
+                            android:ems="10"
+                            android:id="@+id/item_addComment"
+                            android:background="@drawable/addcomment_edittext"
+                            android:padding="10dp" />
+
+                        <Button
+                            android:text="Submit Comment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/item_submitComment"
+                            style="@style/Widget.AppCompat.Button.Colored"
+                            android:layout_marginTop="5dp"
+                            android:visibility="invisible"
+                            android:clickable="false"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>

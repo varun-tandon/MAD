@@ -37,7 +37,7 @@ public class CreateItemActivity extends AppCompatActivity implements AdapterView
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         final Spinner conditionSelection = (Spinner) findViewById(R.id.item_spinner);
-        String[] conditions = {"Bad", "Good", "New"};
+        String[] conditions = {"Poor", "Acceptable", "Used - Good", "Used - Like New", "New"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, conditions);
         conditionSelection.setAdapter(adapter);
         conditionSelection.setOnItemSelectedListener(CreateItemActivity.this);
@@ -67,11 +67,14 @@ public class CreateItemActivity extends AppCompatActivity implements AdapterView
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         String s = (String) parent.getItemAtPosition(pos);
-        Log.d("TEST", s);
-        if (s.equals("Bad")) {
-            selectedCondition = "Bad";
-        } else if (s.equals("Good")) {
-            selectedCondition = "Good";
+        if (s.equals("Poor")) {
+            selectedCondition = "Poor";
+        } else if (s.equals("Acceptable")) {
+            selectedCondition = "Acceptable";
+        } else if (s.equals("Used - Good")) {
+            selectedCondition = "Used - Good";
+        } else if (s.equals("Used - Like New")) {
+            selectedCondition = "Used - Like New";
         } else if (s.equals("New")) {
             selectedCondition = "New";
         }

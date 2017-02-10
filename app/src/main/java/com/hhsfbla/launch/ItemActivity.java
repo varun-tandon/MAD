@@ -1,8 +1,11 @@
 package com.hhsfbla.launch;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,8 +15,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +32,10 @@ import com.google.firebase.database.ValueEventListener;
 import org.w3c.dom.Text;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by zhenfangchen on 2/7/17.
@@ -32,7 +43,7 @@ import java.io.IOException;
 
 public class ItemActivity extends AppCompatActivity{
 
-    private String fid, uid;
+    private String fid, uid, id;
 
     private DatabaseReference databaseReference;
 
@@ -50,6 +61,7 @@ public class ItemActivity extends AppCompatActivity{
 
         Intent intent = getIntent();
 
+        id = intent.getStringExtra("id");
         fid = intent.getStringExtra("fid");
         uid = intent.getStringExtra("uid");
 
@@ -68,18 +80,24 @@ public class ItemActivity extends AppCompatActivity{
         ((TextView)findViewById(R.id.item_description)).setText(intent.getStringExtra("description"));
 
         Button condition = (Button) findViewById(R.id.item_condition);
-        if (intent.getStringExtra("condition").equals("Bad")) {
+        if (intent.getStringExtra("condition").equals("Poor")) {
             condition.setText("Poor");
-            condition.setTextColor(Color.RED);
-        } else if (intent.getStringExtra("condition").equals("Good")) {
-            condition.setText("Good");
-            condition.setTextColor(Color.YELLOW);
+            //condition.setTextColor(Color.RED);
+        } else if (intent.getStringExtra("condition").equals("Acceptable")) {
+            condition.setText("Acceptable");
+            //condition.setTextColor(Color.rgb(255, 153, 0)); //orange
+        } else if (intent.getStringExtra("condition").equals("Used - Good")) {
+            condition.setText("Used - Good");
+            //condition.setTextColor(Color.GREEN);
+        } else if (intent.getStringExtra("condition").equals("Used - Like New")) {
+            condition.setText("Used - Like New");
+            //condition.setTextColor(Color.GREEN);
         } else if (intent.getStringExtra("condition").equals("New")) {
             condition.setText("New");
-            condition.setTextColor(Color.GREEN);
+           // condition.setTextColor(Color.GREEN);
         }
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("fundraisers");
+        /*databaseReference = FirebaseDatabase.getInstance().getReference("fundraisers");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -108,12 +126,100 @@ public class ItemActivity extends AppCompatActivity{
 
         ((TextView)findViewById(R.id.item_fundraiser_name)).setText(fundraiser.organizationName);
         ((ImageView)findViewById(R.id.item_seller_picture)).setImageBitmap(fundraiser.imageBitmap);
-        ((TextView)findViewById(R.id.item_seller_name)).setText(sellerName);
+        ((TextView)findViewById(R.id.item_seller_name)).setText(sellerName);*/
 
         Button buy = (Button) findViewById(R.id.item_buy);
         buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+            }
+        });
+
+        final Button submitComment = (Button) findViewById(R.id.item_submitComment);
+
+        final EditText addComment = (EditText) findViewById(R.id.item_addComment);
+
+        submitComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (((EditText)(findViewById(R.id.item_addComment))).getText().length() == 0) {
+
+                } else {
+                    databaseReference = FirebaseDatabase.getInstance().getReference("comments");
+                    ItemComment comment = new ItemComment(uid, "Bob", id, ((EditText)findViewById(R.id.item_addComment)).getText().toString(), 0);
+                    DatabaseReference newReference = databaseReference.push();
+                    newReference.setValue(comment);
+                    hideSoftKeyboard(ItemActivity.this, addComment);
+                    submitComment.setClickable(false);
+                    submitComment.setVisibility(View.INVISIBLE);
+                    addComment.setText("");
+                }
+            }
+        });
+
+        addComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                GradientDrawable editD = (GradientDrawable) addComment.getBackground();
+                editD.setColor(Color.WHITE);
+
+                submitComment.setVisibility(View.VISIBLE);
+                submitComment.setClickable(true);
+            }
+        });
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("comments");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<ItemComment> comments = new ArrayList<ItemComment>();
+                for (DataSnapshot data: dataSnapshot.getChildren()) {
+                    final ItemComment comment = data.getValue(ItemComment.class);
+                    if (comment.itemID.equals(id)) {
+                        comments.add(comment);
+                    }
+                }
+
+                Collections.sort(comments, new Comparator<ItemComment>() {
+                    @Override
+                    public int compare(ItemComment itemComment, ItemComment t1) {
+                        return Integer.compare(itemComment.order, t1.order);
+                    }
+                });
+
+                for (int i = 0; i < comments.size(); i++) {
+                    ItemComment comment = comments.get(i);
+
+                    LinearLayout newComment = new LinearLayout(ItemActivity.this);
+                    newComment.setOrientation(LinearLayout.VERTICAL);
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(1100, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    newComment.setLayoutParams(layoutParams);
+
+                    TextView name = new TextView(ItemActivity.this);
+                    name.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                    name.setText(comment.uName + " said:");
+
+                    newComment.addView(name);
+
+                    TextView text = new TextView(ItemActivity.this);
+                    text.setBackgroundResource(R.drawable.comment);
+                    LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    textParams.setMargins(0, 10, 0, 0);
+                    text.setPadding(20, 20, 20, 20);
+                    text.setLayoutParams(textParams);
+                    text.setText(comment.text);
+
+                    newComment.addView(text);
+
+                    LinearLayout view_comments = (LinearLayout) findViewById(R.id.item_comments);
+                    view_comments.addView(newComment);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         });
@@ -129,5 +235,11 @@ public class ItemActivity extends AppCompatActivity{
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public static void hideSoftKeyboard (Activity activity, View view)
+    {
+        InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
     }
 }

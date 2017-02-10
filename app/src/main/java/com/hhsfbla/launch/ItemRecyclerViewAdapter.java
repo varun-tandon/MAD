@@ -31,6 +31,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
     private Context context;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        public String id;
         public String uid;
         public String fid;
         public String condition;
@@ -56,6 +57,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context, ItemActivity.class);
+                    intent.putExtra("id", id);
                     intent.putExtra("uid", uid);
                     intent.putExtra("fid", fid);
                     intent.putExtra("condition", condition);
@@ -87,6 +89,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
 
     @Override
     public void onBindViewHolder(ItemRecyclerViewAdapter.ViewHolder holder, final int position) {
+        holder.id = mDataset.get(position).id;
         holder.uid = mDataset.get(position).uid;
         holder.fid = mDataset.get(position).fundraiserID;
         holder.condition = mDataset.get(position).condition;
@@ -94,7 +97,8 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
 
         holder.image.setImageBitmap(mDataset.get(position).imageBitmap);
         holder.name.setText(mDataset.get(position).name);
-        holder.price.setText(mDataset.get(position).price+"");
+        holder.price.setText("$"+String.format("%.2f", mDataset.get(position).price)+"");
+        //"$"+String.format("%.2f",Double.parseDouble(intent.getStringExtra("price")))
     }
 
     public void switchContent(int id, Fragment fragment) {
