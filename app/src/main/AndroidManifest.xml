@@ -13,9 +13,9 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:largeHeap="true">
+        android:theme="@style/AppTheme">
         <activity
             android:name=".NavDrawerActivity"
             android:label="@string/app_name"
@@ -31,11 +31,11 @@
             android:name=".TitlescreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="Launch"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/SplashTheme"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -54,34 +54,48 @@
             android:name=".FinishCreateFundraiserActivity"
             android:label="@string/title_activity_finish_create_fundraiser"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".DonateActivity"
+        <activity
+            android:name=".DonateActivity"
             android:label="Donate"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".BuyItemActivity"
+        <activity
+            android:name=".BuyItemActivity"
             android:label="Complete Purchase"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".BrowseItemsActivity"
+        <activity
+            android:name=".BrowseItemsActivity"
             android:label="Browse Fundraiser Items"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ItemActivity"
+        <activity
+            android:name=".ItemActivity"
             android:label="Item Info"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".CreateItemActivity"
+        <activity
+            android:name=".CreateItemActivity"
             android:label="Sell an Item"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".FinishCreateItemActivity"
+        <activity
+            android:name=".FinishCreateItemActivity"
             android:label="Finish Selling an Item"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.braintreepayments.api.BraintreeBrowserSwitchActivity"
+        <activity
+            android:name="com.braintreepayments.api.BraintreeBrowserSwitchActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="${applicationId}.braintree" />
             </intent-filter>
+        </activity>
+        <activity android:name=".FundraiserCreatedSuccessActivity"
+            android:theme="@style/SplashTheme"
+            android:label="Fundraiser Created">
+
         </activity>
     </application>
 
