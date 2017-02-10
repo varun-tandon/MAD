@@ -3,6 +3,7 @@ package com.hhsfbla.launch;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -20,6 +21,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 
@@ -65,7 +68,6 @@ public class ItemActivity extends AppCompatActivity{
         ((TextView)findViewById(R.id.item_description)).setText(intent.getStringExtra("description"));
 
         Button condition = (Button) findViewById(R.id.item_condition);
-        Log.d("TEST4", intent.getStringExtra("condition") + "fasdf");
         if (intent.getStringExtra("condition").equals("Bad")) {
             condition.setText("Poor");
             condition.setTextColor(Color.RED);
@@ -77,11 +79,16 @@ public class ItemActivity extends AppCompatActivity{
             condition.setTextColor(Color.GREEN);
         }
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("fundraisers").child(fid);
+        databaseReference = FirebaseDatabase.getInstance().getReference("fundraisers");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("TEST4", dataSnapshot.getKey()+"");
                 fundraiser = dataSnapshot.getValue(Fundraiser.class);
+
+                ((TextView)findViewById(R.id.item_fundraiser_name)).setText(fundraiser.organizationName);
+                ((ImageView)findViewById(R.id.item_seller_picture)).setImageBitmap(fundraiser.imageBitmap);
+                ((TextView)findViewById(R.id.item_seller_name)).setText(sellerName);
             }
 
             @Override
