@@ -13,6 +13,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -158,12 +159,37 @@ public class ItemActivity extends AppCompatActivity{
                 if (((EditText)(findViewById(R.id.item_addComment))).getText().length() == 0) {
 
                 } else {
-                    DatabaseReference itemReference = FirebaseDatabase.getInstance().getReference("items").child(id);
+                    final DatabaseReference itemReference = FirebaseDatabase.getInstance().getReference("items").child(id);
                     itemReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Item i = dataSnapshot.getValue(Item.class);
                             numComments = i.numOfComments;
+
+                            numComments += 1;
+                            itemReference.child("numOfComments").setValue(numComments);
+
+                            DatabaseReference userReference = FirebaseDatabase.getInstance().getReference("users").child(NavDrawerActivity.userID).child("full_name");
+                            userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    String currentName = (String) dataSnapshot.getValue();
+
+                                    databaseReference = FirebaseDatabase.getInstance().getReference("comments");
+                                    ItemComment comment = new ItemComment(NavDrawerActivity.userID, currentName, id, ((EditText)findViewById(R.id.item_addComment)).getText().toString(), numComments);
+                                    DatabaseReference newReference = databaseReference.push();
+                                    newReference.setValue(comment);
+                                    hideSoftKeyboard(ItemActivity.this, addComment);
+                                    submitComment.setClickable(false);
+                                    submitComment.setVisibility(View.INVISIBLE);
+                                    addComment.setText("");
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
                         }
 
                         @Override
@@ -171,17 +197,6 @@ public class ItemActivity extends AppCompatActivity{
 
                         }
                     });
-                    numComments += 1;
-                    itemReference.child("numOfComments").setValue(numComments);
-
-                    databaseReference = FirebaseDatabase.getInstance().getReference("comments");
-                    ItemComment comment = new ItemComment(NavDrawerActivity.userID, sellerName, id, ((EditText)findViewById(R.id.item_addComment)).getText().toString(), numComments);
-                    DatabaseReference newReference = databaseReference.push();
-                    newReference.setValue(comment);
-                    hideSoftKeyboard(ItemActivity.this, addComment);
-                    submitComment.setClickable(false);
-                    submitComment.setVisibility(View.INVISIBLE);
-                    addComment.setText("");
                 }
             }
         });
@@ -197,6 +212,8 @@ public class ItemActivity extends AppCompatActivity{
                 submitComment.setClickable(true);
             }
         });
+
+        ((LinearLayout)findViewById(R.id.item_comments)).removeAllViews();
 
         databaseReference = FirebaseDatabase.getInstance().getReference("comments");
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -222,29 +239,62 @@ public class ItemActivity extends AppCompatActivity{
                 for (int i = 0; i < comments.size(); i++) {
                     ItemComment comment = comments.get(i);
 
-                    LinearLayout newComment = new LinearLayout(ItemActivity.this);
-                    newComment.setOrientation(LinearLayout.VERTICAL);
-                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(1100, LinearLayout.LayoutParams.WRAP_CONTENT);
-                    newComment.setLayoutParams(layoutParams);
+                    if (!comment.uid.equals(NavDrawerActivity.userID)) {
+                        LinearLayout newComment = new LinearLayout(ItemActivity.this);
+                        newComment.setOrientation(LinearLayout.VERTICAL);
+                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(700, LinearLayout.LayoutParams.WRAP_CONTENT);
+                        layoutParams.setMargins(0, 25, 0, 0);
+                        newComment.setLayoutParams(layoutParams);
 
-                    TextView name = new TextView(ItemActivity.this);
-                    name.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                    name.setText(comment.uName + " said:");
+                        TextView name = new TextView(ItemActivity.this);
+                        name.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                        name.setText(comment.uName + " said:");
 
-                    newComment.addView(name);
+                        newComment.addView(name);
 
-                    TextView text = new TextView(ItemActivity.this);
-                    text.setBackgroundResource(R.drawable.comment);
-                    LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                    textParams.setMargins(0, 10, 0, 0);
-                    text.setPadding(20, 20, 20, 20);
-                    text.setLayoutParams(textParams);
-                    text.setText(comment.text);
+                        TextView text = new TextView(ItemActivity.this);
+                        text.setBackgroundResource(R.drawable.comment);
+                        LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                        textParams.setMargins(0, 10, 0, 0);
+                        text.setPadding(20, 20, 20, 20);
+                        text.setLayoutParams(textParams);
+                        text.setText(comment.text);
 
-                    newComment.addView(text);
+                        newComment.addView(text);
 
-                    LinearLayout view_comments = (LinearLayout) findViewById(R.id.item_comments);
-                    view_comments.addView(newComment);
+                        LinearLayout view_comments = (LinearLayout) findViewById(R.id.item_comments);
+                        view_comments.addView(newComment);
+                    } else {
+                        LinearLayout newComment = new LinearLayout(ItemActivity.this);
+                        newComment.setOrientation(LinearLayout.VERTICAL);
+                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(700, LinearLayout.LayoutParams.WRAP_CONTENT);
+                        layoutParams.gravity = Gravity.RIGHT;
+                        layoutParams.setMargins(0, 25, 0, 0);
+                        newComment.setLayoutParams(layoutParams);
+
+//                        TextView name = new TextView(ItemActivity.this);
+//                        LinearLayout.LayoutParams nameLayout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//                        nameLayout.gravity = Gravity.RIGHT;
+//                        name.setLayoutParams(nameLayout);
+//                        name.setText("You said:");
+//
+//                        newComment.addView(name);
+
+                        TextView text = new TextView(ItemActivity.this);
+                        text.setBackgroundResource(R.drawable.own_item_comments);
+                        text.setTextColor(Color.WHITE);
+                        LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                        textParams.setMargins(0, 10, 0, 0);
+                        textParams.gravity = Gravity.RIGHT;
+                        text.setPadding(20, 20, 20, 20);
+                        text.setLayoutParams(textParams);
+                        text.setText(comment.text);
+
+                        newComment.addView(text);
+
+                        LinearLayout view_comments = (LinearLayout) findViewById(R.id.item_comments);
+                        view_comments.addView(newComment);
+                    }
                 }
             }
 
