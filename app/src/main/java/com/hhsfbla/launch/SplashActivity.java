@@ -28,14 +28,21 @@ import java.util.Timer;
  * Created by Varun on 2/5/2017.
  */
 
+/**
+ * Creates a SplashScreen to display to the user while the app renders and loads in the background
+ */
 public class SplashActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Window window = this.getWindow();
+        //Sets Status Bar Color
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(Color.rgb(40, 61, 72));
         }
+        /*
+        Request permissions if needed to write to media
+         */
         if (ContextCompat.checkSelfPermission(this,
                 android.Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED || (ContextCompat.checkSelfPermission(this,
@@ -45,6 +52,9 @@ public class SplashActivity extends AppCompatActivity{
                     new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     420);
         }
+        /*
+        Reads in data from the sdcard if a user has already logged in (prevent having to log in multiple times)
+         */
         File f = new File("/sdcard/saveUserData.bin");
         if(f.exists()){
             UsernameAndPasswordStorage storage = new UsernameAndPasswordStorage();
