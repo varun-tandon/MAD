@@ -87,7 +87,7 @@ public class FundraiserCreatedSuccessActivity extends AppCompatActivity {
                                 shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
                                 shareIntent.setType("image/jpeg");
                                 shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                startActivity(Intent.createChooser(shareIntent, "send"));
+                                startActivity(Intent.createChooser(shareIntent, "Share..."));
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                     @Override
