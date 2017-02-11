@@ -21,22 +21,37 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * A splash screen after the user has finished creating a fundraiser. On it, it gives the user several options, including
+ * being able to share the new fundraiser on social media, add items for sale immediately into the fundraiser, or continue
+ * fundraising at a later time.
+ */
+
 public class FundraiserCreatedSuccessActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Sets the user interface to the wanted layout
         setContentView(R.layout.activity_fundraiser_created_success);
+
+        /**
+         * Adds the clicking functionality to the social media button. After clicking, the user is allowed to selected several
+         * social media platforms on which they want to share the fundraiser, including Facebook, Gmail, and Google Plus.
+         */
         ((ImageButton) findViewById(R.id.man_in_party)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = getIntent();
                 String message = intent.getStringExtra("extra");
-               // gs://launch-aae4e.appspot.com/fundreaisers/-Kcar8MB4CI3CBU6fr3d.jpg
+
+                /**
+                 * Creates a default message for the user to publish on their various social media platforms
+                 */
                 File localFile = null;
                 localFile = new File(Environment.getExternalStorageDirectory().toString() + "/" +  "lastScreen.jpg");
                 DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-//                    DatabaseReference newRef = database.child("fundraisers").child(message);
                 StorageReference imageRef =  FirebaseStorage.getInstance().getReference().child("fundraisers/" + message + ".jpg");
 
                 final File finalLocalFile = localFile;
@@ -44,14 +59,16 @@ public class FundraiserCreatedSuccessActivity extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                Uri imageUri = Uri.fromFile(finalLocalFile);
+                                Uri imageUri = Uri.fromFile(finalLocalFile); //obtains the Uri value of the front page image
+
+                                //adds the contents of the default message to the Intent that will send the user to the selected social media
                                 Intent shareIntent = new Intent();
                                 shareIntent.setAction(Intent.ACTION_SEND);
                                 shareIntent.putExtra(Intent.EXTRA_TEXT, "I just created my fundraiser using Launch; join me in my efforts! #Launch");
                                 shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
                                 shareIntent.setType("image/jpeg");
                                 shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                startActivity(Intent.createChooser(shareIntent, "send"));
+                                startActivity(Intent.createChooser(shareIntent, "send")); //sends the user to the social media platform
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -63,52 +80,22 @@ public class FundraiserCreatedSuccessActivity extends AppCompatActivity {
 
             }
         });
-        ((ImageButton) findViewById(R.id.man_in_party)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = getIntent();
-                String message = intent.getStringExtra("extra");
-                // gs://launch-aae4e.appspot.com/fundreaisers/-Kcar8MB4CI3CBU6fr3d.jpg
-                File localFile = null;
-                localFile = new File(Environment.getExternalStorageDirectory().toString() + "/" +  "lastScreen.jpg");
-                DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-//                    DatabaseReference newRef = database.child("fundraisers").child(message);
-                StorageReference imageRef =  FirebaseStorage.getInstance().getReference().child("fundraisers/" + message + ".jpg");
 
-                final File finalLocalFile = localFile;
-                imageRef.getFile(localFile)
-                        .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                Uri imageUri = Uri.fromFile(finalLocalFile);
-                                Intent shareIntent = new Intent();
-                                shareIntent.setAction(Intent.ACTION_SEND);
-                                shareIntent.putExtra(Intent.EXTRA_TEXT, "I just created my fundraiser using Launch; join me in my efforts! #Launch");
-                                shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
-                                shareIntent.setType("image/jpeg");
-                                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                startActivity(Intent.createChooser(shareIntent, "Share..."));
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        System.exit(0);
-                    }
-                });
-
-
-            }
-        });
+        /**
+         * Adds the clicking functionality to the sell item button. Allows the user to begin selling items for
+         * his or her fundraiser right away, as it leads to the creation of an item
+         */
         ((ImageButton) findViewById(R.id.sell_imagebutton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent launchSellPage = new Intent(FundraiserCreatedSuccessActivity.this, CreateItemActivity.class);
-                launchSellPage.putExtra("fid", getIntent().getStringExtra("extra"));
-                FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                launchSellPage.putExtra("uid", mAuth.getCurrentUser().getUid());
-                startActivity(launchSellPage);
-                finish();
+                launchSellPage.putExtra("fid", getIntent().getStringExtra("extra")); //adds the newly created fundraiser's unique Firebase ID to the intent
 
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                launchSellPage.putExtra("uid", mAuth.getCurrentUser().getUid()); //retrieves the user's unique Firebase ID from the database and adds it to the intent
+
+                startActivity(launchSellPage); //sends the user to the creation of an item
+                finish();
             }
         });
 

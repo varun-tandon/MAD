@@ -6,21 +6,32 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
- * Created by Heidi on 2/5/2017.
+ * An object that holds the data for a comment made on an Item
  */
 
 public class ItemComment {
 
-    protected String uid, uName;
-    protected String itemID;
-    protected String text;
+    protected String uid, uName; //the Firebase ID and the name of the user who made the comment
+    protected String itemID; //the Firebase ID of the item on which the comment was made
+    protected String text; //the comment itself
 
-    protected int order;
+    protected int order; //a helper field that establishes the order of which the comment must be displayed
 
+    /**
+     * A default constructor
+     */
     public ItemComment() {
 
     }
 
+    /**
+     * A constructor that initializes all fields
+     * @param uid the Firebase ID of the user who made the comment
+     * @param uName the name of the user who made the comment
+     * @param itemID the Firebase ID of the item on which the comment was made
+     * @param text
+     * @param order the number of comments made on the same Item before this comment was made
+     */
     public ItemComment(String uid, String uName, String itemID, String text, int order) {
         this.uName = uName;
         this.uid = uid;

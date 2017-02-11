@@ -100,7 +100,8 @@ public class FinishCreateItemActivity extends AppCompatActivity {
                             imageBitmap != null ? true : false);
                     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
                     DatabaseReference newRef = database.child("items").push();
-                    item.setId(newRef.getKey());
+                    String tempId = newRef.getKey();
+                    item.setId(tempId);
 
                     newRef.setValue(item);
 
@@ -125,6 +126,17 @@ public class FinishCreateItemActivity extends AppCompatActivity {
                     });
 
                     Toast.makeText(FinishCreateItemActivity.this, "Item created", Toast.LENGTH_SHORT).show();
+
+                    Intent gotoItemIntent = new Intent(FinishCreateItemActivity.this, ItemActivity.class);
+                    gotoItemIntent.putExtra("id", tempId);
+                    gotoItemIntent.putExtra("uid", uid);
+                    gotoItemIntent.putExtra("fid", fid);
+                    gotoItemIntent.putExtra("name", name);
+                    gotoItemIntent.putExtra("price", price);
+                    gotoItemIntent.putExtra("condition", condition);
+                    gotoItemIntent.putExtra("description", description);
+
+                    FinishCreateItemActivity.this.startActivity(gotoItemIntent);
             }
         });
     }

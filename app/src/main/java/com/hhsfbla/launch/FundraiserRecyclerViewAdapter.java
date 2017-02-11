@@ -17,27 +17,39 @@ import com.balysv.materialripple.MaterialRippleLayout;
 
 import java.util.List;
 
+/**
+ * An adapter that displays the fundraisers hosted on the app. Allows the user to scroll through all available
+ * fundraisers and select ones that they are interested in. Once selected, the user is then taken to the fundraiser's
+ * specific page through an Intent.
+ */
 
 public class FundraiserRecyclerViewAdapter extends RecyclerView.Adapter<FundraiserRecyclerViewAdapter.ViewHolder>  {
-    private List<Fundraiser> mDataset;
-    private Context context;
+    private List<Fundraiser> mDataset; //a list of all the fundraisers existing in the app
+    private Context context; //the context of the Fragment that the adapter is hosted in
 
+    /**
+     * A container that holds all the information of a specific fundraiser
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public String fid;
-        public CardView card;
-        public MaterialRippleLayout cardRipple;
-        public ImageView image;
+        public String fid; //the fundraiser ID assigned to it by Firebase
+        public CardView card; //the View that is displayed for the specific fundraiser when browsing through all the fundraisers
+        public MaterialRippleLayout cardRipple; //used to create a ripple effect when selecting the fundraiser
+        public ImageView image; //the image that is used for the fundraiser
         public TextView name;
         public TextView orgname;
-        public TextView progressText;
+        public TextView progressText; //specifies the amount that has been donated so far and the goal amount
         public RoundCornerProgressBar progressBar;
         public TextView daysLeftText;
 
-        private final Context context;
-
+        /**
+         * A constructor that initializes all the fields of the container
+         * @param v a View that is associated with the current container
+         */
         public ViewHolder(View v) {
             super(v);
-            context = v.getContext();
+            /**
+             * Retrieves all the necessary data from the relevant Views contained in the parameter View
+             */
             card = (CardView) v.findViewById(R.id.card);
             cardRipple = (MaterialRippleLayout) v.findViewById(R.id.card_ripple);
             image = (ImageView) v.findViewById(R.id.card_image);
@@ -49,23 +61,40 @@ public class FundraiserRecyclerViewAdapter extends RecyclerView.Adapter<Fundrais
         }
     }
 
+    /**
+     * A constructor for the adapter that encapsulates all the fundraisers
+     * @param c the Context of the Fragment that includes the adapter
+     * @param items a List of all the fundraisers to be included in the adapter
+     */
     public FundraiserRecyclerViewAdapter(Context c, List<Fundraiser> items) {
         context = c;
         mDataset = items;
     }
 
-    @Override
+    /**
+     * Creates a frame for the container of each individual fundraiser
+     * @param parent the container that contains all the individual fundraisers
+     * @param viewType the type of container
+     * @return the created fundraiser frame
+     */
     public FundraiserRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card_layout, parent, false);
 
-        ViewHolder vh = new ViewHolder(v);
+        ViewHolder vh = new ViewHolder(v); //creates a container for the View
         return vh;
     }
 
-    @Override
+    /**
+     * Inserts the data from a fundraiser into its container
+     * @param holder the container for the fundraiser
+     * @param position gives information on which container is being altered
+     */
     public void onBindViewHolder(FundraiserRecyclerViewAdapter.ViewHolder holder, final int position) {
         final Fundraiser f = mDataset.get(position);
+        /**
+         * Inserts the fundraiser information from the Fundraiser object onto the user interface
+         */
         holder.fid = f.id;
         holder.image.setImageBitmap(f.imageBitmap);
         holder.name.setText(f.purpose);
@@ -73,6 +102,10 @@ public class FundraiserRecyclerViewAdapter extends RecyclerView.Adapter<Fundrais
         holder.progressText.setText(f.makeProgressString());
         holder.progressBar.setProgress(f.amountRaised * 100f / f.goal);
         holder.daysLeftText.setText(f.makeDaysRemainingString());
+
+        /**
+         * Sets the click functionality for the container. When clicked, the user will be led to the fundraiser's individual page
+         */
         holder.cardRipple.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +114,10 @@ public class FundraiserRecyclerViewAdapter extends RecyclerView.Adapter<Fundrais
             // from http://stackoverflow.com/questions/28984879/how-to-open-a-different-fragment-on-recyclerview-onclick
             private void fragmentJump(Fundraiser mItemSelected) {
                 FundraiserFragment mFragment = new FundraiserFragment();
+
+                /**
+                 * Creates and stores all the information needed for the fundraiser page
+                 */
                 Bundle mBundle = new Bundle();
                 mBundle.putString("fid", mItemSelected.id);
                 mBundle.putString("uid", mItemSelected.uid);
@@ -91,19 +128,27 @@ public class FundraiserRecyclerViewAdapter extends RecyclerView.Adapter<Fundrais
                 mBundle.putString("deadline", mItemSelected.deadline);
                 mBundle.putInt("amountRaised", mItemSelected.amountRaised);
                 mBundle.putInt("goal", mItemSelected.goal);
-                mBundle.putParcelable("bitmap", mItemSelected.imageBitmap);
+                mBundle.putParcelable("bitmap", mItemSelected.imageBitmap); //utilizes the fact that Bitmaps are Parcelable
                 mFragment.setArguments(mBundle);
                 switchContent(R.id.content_frame, mFragment);
             }
         });
     }
 
+    /**
+     * A helper method that switches from browsing fundraisers to a specific fundraiser page
+     * @param id The ID of the screen that is being switched out of
+     * @param fragment The fragment that is being switched to
+     */
     public void switchContent(int id, Fragment fragment) {
-        NavDrawerActivity mainActivity = (NavDrawerActivity) context;
-        mainActivity.switchContent(id, fragment);
+        NavDrawerActivity mainActivity = (NavDrawerActivity) context; //uses the fact that browsing fundraisers is a fragment, and is thus overlayed onto the main Activity
+        mainActivity.switchContent(id, fragment); //switches the overlayed fragment to the individual fundraiser fragment
     }
 
-    @Override
+    /**
+     * A getter method
+     * @return the number of Fundraisers available
+     */
     public int getItemCount() {
         return mDataset.size();
     }
