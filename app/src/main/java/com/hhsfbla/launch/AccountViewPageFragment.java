@@ -29,9 +29,9 @@ import static android.content.ContentValues.TAG;
 public class AccountViewPageFragment extends Fragment {
     private View launchAccountPage;
     private FirebaseAuth mAuth;
+    StringBuilder fundraisersText;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        launchAccountPage = inflater.inflate(R.layout.user_account_view_page, container, false);
 
         // Get user data with uid
         mAuth = FirebaseAuth.getInstance();
@@ -51,6 +51,7 @@ public class AccountViewPageFragment extends Fragment {
                     // ...
                 }
             });
+
         // Get email
         myRef.child("email").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -65,6 +66,8 @@ public class AccountViewPageFragment extends Fragment {
                 // ...
             }
         });
+        launchAccountPage = inflater.inflate(R.layout.user_account_view_page, container, false);
+
         // Edit password button
         launchAccountPage.findViewById(R.id.edit_button).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -73,6 +76,9 @@ public class AccountViewPageFragment extends Fragment {
                 dialog.show(getChildFragmentManager(), "FragmentTest");
             }
         });
+
+
+
         // Delete serialized user data
         launchAccountPage.findViewById(R.id.sign_out_button).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

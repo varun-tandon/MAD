@@ -93,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                                         UsernameAndPasswordStorage thisUser = new UsernameAndPasswordStorage();
                                         thisUser.setUsername(emailInput.getText().toString());
                                         thisUser.setPassword(passwordInput.getText().toString());
+
                                         thisUser.storeCredentials(); //pushes the credentials of the current user into his or her device; allows for the user to be automatically signed back in
 
                                         Intent gotoMainIntent = new Intent(LoginActivity.this, NavDrawerActivity.class); //the user is sent to the home page of the app
