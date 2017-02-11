@@ -4,6 +4,7 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,29 +30,55 @@ import static android.content.ContentValues.TAG;
 public class AccountViewPageFragment extends Fragment {
     private View launchAccountPage;
     private FirebaseAuth mAuth;
-    StringBuilder fundraisersText;
+    StringBuilder fundraisersText = new StringBuilder();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        launchAccountPage = inflater.inflate(R.layout.user_account_view_page, container, false);
 
         // Get user data with uid
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("users").child(user.getUid());
-            myRef.child("full_name").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    // ...
-                        ((TextView)launchAccountPage.findViewById(R.id.account_page_user_name)).setText(dataSnapshot.getValue().toString());
-
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("/fundraisers");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot child: dataSnapshot.getChildren()){
+                    final Fundraiser f = child.getValue(Fundraiser.class); //retrieves the Fundraiser
+                    System.out.println(f.uid);
+                    System.out.println(user.getUid());
+                    if (f.uid.equals(user.getUid()) ){
+                        fundraisersText.append(f.purpose + "\n");
+                        ((TextView) launchAccountPage.findViewById(R.id.account_page_fundraisers_list)).setText(fundraisersText.toString());
+                        System.out.println("HOLA");
+                    }
                 }
+            }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    // ...
-                }
-            });
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
+            }
+
+
+        });
+
+
+//Get fullname
+        myRef.child("full_name").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // ...
+                ((TextView)launchAccountPage.findViewById(R.id.account_page_user_name)).setText(dataSnapshot.getValue().toString());
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // ...
+            }
+        });
         // Get email
         myRef.child("email").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -66,7 +93,6 @@ public class AccountViewPageFragment extends Fragment {
                 // ...
             }
         });
-        launchAccountPage = inflater.inflate(R.layout.user_account_view_page, container, false);
 
         // Edit password button
         launchAccountPage.findViewById(R.id.edit_button).setOnClickListener(new View.OnClickListener() {

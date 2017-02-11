@@ -5,89 +5,101 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
-    <ImageView
-        android:layout_width="186dp"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/appicon"
-        android:id="@+id/imageView2"
-        android:layout_weight="0.49"
-        android:layout_marginTop="30dp"
-        android:layout_gravity="center"
-        />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.49">
 
-    <TextView
-        android:text="Name:"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:layout_marginTop="30dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="#000"
-        />
-    <TextView
-        android:text="Fishy Fish"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/account_page_user_name"
-        android:layout_marginTop="15dp"
-        android:textAlignment="center"
-        android:textSize="20sp"/>
-    <TextView
-        android:text="Email:"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:layout_marginTop="30dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="#000"
-        />
-    <TextView
-        android:text="fishyfish@fishfish.com"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/account_page_user_email"
-        android:layout_marginTop="15dp"
-        android:textAlignment="center"
-        android:textSize="20sp"/>
-    <TextView
-        android:text="Fundraisers:"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:layout_marginTop="15dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="#000"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            <ImageView
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                app:srcCompat="@drawable/appicon"
+                android:id="@+id/imageView2"
+                android:layout_weight="0.49"
+                android:layout_gravity="center"
+                android:padding="0dp"
+                />
 
-        />
-    <TextView
-        android:text="Fish Awareness \n FBLA NLC \n Other thing \n More Fish Awareness"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/account_page_fundraisers_list"
-        android:textAlignment="center"
-        android:layout_marginTop="15dp"
-        android:textSize="20sp"
-        />
+            <TextView
+                android:text="Name:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#000"
+                />
+            <TextView
+                android:text=""
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/account_page_user_name"
+                android:layout_marginTop="15dp"
+                android:textAlignment="center"
+                android:textSize="20sp"/>
+            <TextView
+                android:text="Email:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_marginTop="30dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#000"
+                />
+            <TextView
+                android:text=""
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/account_page_user_email"
+                android:layout_marginTop="15dp"
+                android:textAlignment="center"
+                android:textSize="20sp"/>
+            <TextView
+                android:text="Your Fundraisers:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_marginTop="15dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#000"
 
-    <Button
-        android:text="Change Password"
-        android:layout_width="164dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/edit_button"
-        android:textColor="#ffffff"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        style="@style/Widget.AppCompat.Button.Colored" />
-    <Button
-        android:text="Sign Out"
-        android:layout_width="164dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/sign_out_button"
-        android:textColor="#ffffff"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        style="@style/Widget.AppCompat.Button.Colored" />
+                />
+            <TextView
+                android:text="None"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/account_page_fundraisers_list"
+                android:textAlignment="center"
+                android:layout_marginTop="15dp"
+                android:textSize="20sp"
+                />
+
+            <Button
+                android:text="Change Password"
+                android:layout_width="164dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/edit_button"
+                android:textColor="#ffffff"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                style="@style/Widget.AppCompat.Button.Colored" />
+            <Button
+                android:text="Sign Out"
+                android:layout_width="164dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/sign_out_button"
+                android:textColor="#ffffff"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                style="@style/Widget.AppCompat.Button.Colored" />
+            </LinearLayout>
+    </ScrollView>
+
+
 </LinearLayout>
