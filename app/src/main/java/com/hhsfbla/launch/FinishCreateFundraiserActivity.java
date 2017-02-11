@@ -35,6 +35,7 @@ import java.io.InputStream;
 
 import static android.R.attr.bitmap;
 import static android.R.id.message;
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
 import static com.hhsfbla.launch.R.id.imageView;
 
 public class FinishCreateFundraiserActivity extends AppCompatActivity {
@@ -106,6 +107,9 @@ public class FinishCreateFundraiserActivity extends AppCompatActivity {
                     });
 
                     Toast.makeText(FinishCreateFundraiserActivity.this, "Fundraiser created", Toast.LENGTH_SHORT).show();
+                  switchToSuccess(newRef.getKey());
+
+
 
                 }
             }
@@ -142,5 +146,11 @@ public class FinishCreateFundraiserActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void switchToSuccess(String newRefKey){
+        Intent switchToSuccess = new Intent(FinishCreateFundraiserActivity.this, FundraiserCreatedSuccessActivity.class);
+        switchToSuccess.putExtra("extra", newRefKey);
+        startActivity(switchToSuccess);
     }
 }

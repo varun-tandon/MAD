@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_fundraiser_created_success"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/colorPrimary"
+    tools:context="com.hhsfbla.launch.FundraiserCreatedSuccessActivity">
+
+    <Button
+        android:text="No thanks, I'll do this later"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button3"
+
+        android:layout_gravity="right|bottom"
+
+        android:textColor="#fff"
+        android:backgroundTint="@color/transparent"
+        android:elevation="5dp" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:text="Awesome, you just launched a fundraiser!"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView13"
+                android:textAlignment="center"
+                android:textColor="#ffffff"
+                android:textSize="24sp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="29dp"
+                />
+
+            <TextView
+                android:text="Here are some next steps to help you reach your goal:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="47dp"
+                android:id="@+id/textView12"
+                android:textAlignment="center"
+                android:textColor="#ffffff"
+                android:textSize="24sp"
+                android:layout_below="@+id/textView13"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:text="Promote on Social Media"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="37dp"
+                android:id="@+id/textView19"
+                tools:text="Promote on social media"
+                android:textSize="22sp"
+                android:textColor="#ffffff"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/textView12"
+                android:layout_centerHorizontal="true" />
+
+            <ImageButton
+                app:srcCompat="@drawable/maninparty"
+                android:id="@+id/man_in_party"
+                android:scaleType="fitXY"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/textView19"
+                android:layout_gravity="center"
+                android:padding="15dp"
+
+                android:backgroundTint="#FF21333C"
+                android:elevation="9dp" />
+
+            <TextView
+                android:text="Add items for sale"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:id="@+id/textView18"
+                android:textSize="22sp"
+                android:textColor="#ffffff"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/imageButton"
+                android:layout_alignStart="@+id/textView19" />
+
+            <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:srcCompat="@drawable/ic_fair_stand"
+                android:layout_marginTop="30dp"
+                android:id="@+id/sell_imagebutton"
+                android:padding="15dp"
+
+                android:tint="@color/pb_white"
+                android:scaleType="fitXY"
+
+                android:layout_below="@+id/textView18"
+
+                android:layout_gravity="center"
+
+                android:backgroundTint="#FF21333C" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
