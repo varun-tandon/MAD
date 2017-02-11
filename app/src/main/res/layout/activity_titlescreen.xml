@@ -14,7 +14,7 @@
          android:fitsSystemWindows. -->
 
     <TextView
-        android:text="This is some random description text that needs to be changed at some point but for now this is here."
+        android:text="Fundraising for nonprofits"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:id="@+id/textView8"
