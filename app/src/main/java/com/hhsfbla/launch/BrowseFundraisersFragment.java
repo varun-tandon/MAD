@@ -22,7 +22,10 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-
+/**
+ * Main page for Browsing Fundraisers, has a RecyclerView of CardViews
+ * @author Heidi
+ */
 public class BrowseFundraisersFragment extends Fragment {
 
     private View browseFundraisersView;
@@ -32,10 +35,12 @@ public class BrowseFundraisersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         browseFundraisersView = inflater.inflate(R.layout.fragment_browse_fundraisers, container, false);
 
+        // find RecyclerView
         mRecyclerView = (RecyclerView) browseFundraisersView.findViewById(R.id.browse_recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         final ArrayList<Fundraiser> fundraisers = new ArrayList<Fundraiser>();
 
+        // get fundraisers data
         final StorageReference storageRef = FirebaseStorage.getInstance().getReference("/fundraisers");
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("/fundraisers");
         ref.addValueEventListener(new ValueEventListener() {
@@ -45,6 +50,8 @@ public class BrowseFundraisersFragment extends Fragment {
 
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     final Fundraiser f = child.getValue(Fundraiser.class);
+
+                    // check if fundraiser has already ended
                     if (!f.isEnded()) {
                         f.setId(child.getKey());
                         storageRef.child(child.getKey() + ".jpg").getBytes(1024 * 1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
@@ -68,7 +75,9 @@ public class BrowseFundraisersFragment extends Fragment {
             }
         });
 
+        // adapter takes array of fundraisers and converts to cardviews
         mAdapter = new FundraiserRecyclerViewAdapter(getActivity(), fundraisers);
+        // must set adapter for recyclerview
         mRecyclerView.setAdapter(mAdapter);
         return browseFundraisersView;
     }

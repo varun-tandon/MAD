@@ -18,7 +18,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 /**
- * Created by zhenfangchen on 2/7/17.
+ * Part 1 of control logic for posting an item to sell
+ * @author Michael
  */
 
 public class CreateItemActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
@@ -40,6 +41,7 @@ public class CreateItemActivity extends AppCompatActivity implements AdapterView
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        // select from preset options for item condition
         final Spinner conditionSelection = (Spinner) findViewById(R.id.item_spinner);
         String[] conditions = {"Poor", "Acceptable", "Used - Good", "Used - Like New", "New"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, conditions);
@@ -51,11 +53,13 @@ public class CreateItemActivity extends AppCompatActivity implements AdapterView
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // check that all fields have been populated
                 if (((TextView)findViewById(R.id.item_name_field)).getText().length() == 0 || ((TextView)findViewById(R.id.item_price_field)).getText().length() == 0
                         || ((TextView)findViewById(R.id.item_description_field)).getText().length() == 0 || selectedCondition.length() == 0) {
                     Toast.makeText(CreateItemActivity.this, "Enter all fields first!", Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    // send data to next page
                     Intent nextPageIntent = new Intent(CreateItemActivity.this, FinishCreateItemActivity.class);
                     nextPageIntent.putExtra("name", ((TextView)findViewById(R.id.item_name_field)).getText().toString());
                     Log.d("TEST2", ((TextView)findViewById(R.id.item_price_field)).getText().toString()+"");
@@ -72,6 +76,7 @@ public class CreateItemActivity extends AppCompatActivity implements AdapterView
         });
     }
 
+    // for item condition spinner
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         String s = (String) parent.getItemAtPosition(pos);
         if (s.equals("Poor")) {

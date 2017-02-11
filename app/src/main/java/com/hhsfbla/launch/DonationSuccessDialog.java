@@ -23,6 +23,10 @@ import com.google.firebase.auth.FirebaseUser;
 
 import static android.content.ContentValues.TAG;
 
+/**
+ * dialog to launch when donation is successful
+ * @author Heidi
+ */
 public class DonationSuccessDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -42,9 +46,9 @@ public class DonationSuccessDialog extends DialogFragment {
                     getActivity().finish();
                 }
             });
+
+        // Set to correct text
         ((TextView) v.findViewById(R.id.donation_success_text)).setText(text);
-
-
 
 //        TODO: learn how to animate
 //        ImageView successImage = (ImageView) getActivity().findViewById(R.id.donate_success_icon);

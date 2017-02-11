@@ -21,6 +21,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**
+ * Part 1 of the form for launching a fundraiser, which includes basic info like nonprofit name,
+ * fundraiser purpose, monetary goal, and deadline for raising funds.
+ */
 public class CreateFundraiserActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     @Override
@@ -41,6 +45,7 @@ public class CreateFundraiserActivity extends AppCompatActivity implements DateP
                 Toast.makeText(CreateFundraiserActivity.this, "Enter all fields first!", Toast.LENGTH_SHORT).show();
             }
             else {
+                // send data to next page
                 Intent nextPageIntent = new Intent(CreateFundraiserActivity.this, FinishCreateFundraiserActivity.class);
                 nextPageIntent.putExtra("organizationName", getTextFromField(R.id.organizationNameField));
                 nextPageIntent.putExtra("purpose", getTextFromField(R.id.fundraiserPurposeField));
@@ -68,16 +73,28 @@ public class CreateFundraiserActivity extends AppCompatActivity implements DateP
         });
     }
 
+    /**
+     * display Android datepicker which has a nice calendar ui
+     * @param v
+     */
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(this.getFragmentManager(), "datePicker");
     }
 
     @Override
+    /**
+     * set text of date input field to selected date
+     */
     public void onDateSet(DatePicker view, int year, int month, int day) {
         ((EditText) findViewById(R.id.fundraiser_dateField)).setText((month + 1) + "/" + day + "/" + year);
     }
 
+    /**
+     * wrapper method for easily retrieving text from TextView
+     * @param id of view
+     * @return String of text in TextView
+     */
     public String getTextFromField(int id) {
         View v = findViewById(id);
         if (v instanceof EditText) {
@@ -86,6 +103,11 @@ public class CreateFundraiserActivity extends AppCompatActivity implements DateP
         return null;
     }
 
+    /**
+     * wrapper method for easily retrieving a single number from a view
+     * @param id of view
+     * @return integer parsed from TextView text
+     */
     public int getIntFromField(int id) {
         View v = findViewById(id);
         if (v instanceof EditText) {

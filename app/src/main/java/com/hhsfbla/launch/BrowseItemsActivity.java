@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -25,11 +24,9 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-import static android.R.attr.colorBackground;
-import static android.R.attr.width;
-
 /**
- * Created by zhenfangchen on 2/6/17.
+ * Represents items listing for each fundraiser
+ * @author Michael
  */
 
 public class BrowseItemsActivity extends AppCompatActivity{
@@ -55,6 +52,7 @@ public class BrowseItemsActivity extends AppCompatActivity{
 
         final String fid = getIntent().getStringExtra("fid");
 
+        // get all items data
         final StorageReference storageRef = FirebaseStorage.getInstance().getReference("item");
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("items");
         ref.addValueEventListener(new ValueEventListener() {
@@ -92,6 +90,10 @@ public class BrowseItemsActivity extends AppCompatActivity{
         mRecyclerView.setAdapter(mAdapter);
     }
 
+    /**
+     * Add message if no items for sale
+     * @return null
+     */
     private void addEmptyItemsMessage() {
         if (empty) {
             TextView message = new TextView(BrowseItemsActivity.this);
@@ -121,6 +123,7 @@ public class BrowseItemsActivity extends AppCompatActivity{
 
 
     @Override
+    // set back (up) button functionality
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:

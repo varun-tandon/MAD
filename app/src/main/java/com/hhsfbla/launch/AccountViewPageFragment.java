@@ -23,7 +23,8 @@ import java.io.File;
 import static android.content.ContentValues.TAG;
 
 /**
- * Created by Varun on 2/2/2017.
+ * Account Settings page to view and edit account info
+ * @author Varun
  */
 public class AccountViewPageFragment extends Fragment {
     private View launchAccountPage;
@@ -31,6 +32,8 @@ public class AccountViewPageFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         launchAccountPage = inflater.inflate(R.layout.user_account_view_page, container, false);
+
+        // Get user data with uid
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -48,6 +51,7 @@ public class AccountViewPageFragment extends Fragment {
                     // ...
                 }
             });
+        // Get email
         myRef.child("email").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -61,6 +65,7 @@ public class AccountViewPageFragment extends Fragment {
                 // ...
             }
         });
+        // Edit password button
         launchAccountPage.findViewById(R.id.edit_button).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
@@ -68,6 +73,7 @@ public class AccountViewPageFragment extends Fragment {
                 dialog.show(getChildFragmentManager(), "FragmentTest");
             }
         });
+        // Delete serialized user data
         launchAccountPage.findViewById(R.id.sign_out_button).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 File file = new File("/sdcard/saveUserData.bin");

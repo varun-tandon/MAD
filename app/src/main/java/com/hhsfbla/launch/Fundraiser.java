@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Created by Heidi on 1/30/2017.
+ * Represents and holds data for a fundraiser
+ * @author Heidi
  */
-public class Fundraiser implements Serializable{
+public class Fundraiser implements Serializable {
 
     protected String id;
-
     protected String uid;
 
     protected String organizationName;
@@ -25,12 +25,23 @@ public class Fundraiser implements Serializable{
     protected boolean hasImage;
     protected int amountRaised;
 
-    protected ArrayList<String> itemIDs;
-
     protected Bitmap imageBitmap;
 
+    /**
+     * no args constructor
+     */
     public Fundraiser() {}
 
+    /**
+     * basic constructor
+     * @param uid
+     * @param organizationName
+     * @param purpose
+     * @param goal
+     * @param deadline
+     * @param description
+     * @param hasImage
+     */
     public Fundraiser(String uid, String organizationName, String purpose, int goal, String deadline,
                       String description, boolean hasImage) {
         this.uid = uid;
@@ -41,8 +52,6 @@ public class Fundraiser implements Serializable{
         this.description = description;
         this.hasImage = hasImage;
         amountRaised = 0;
-
-        itemIDs = new ArrayList<String>();
     }
 
     public void setId(String id) {
@@ -53,10 +62,18 @@ public class Fundraiser implements Serializable{
         this.imageBitmap = imageBitmap;
     }
 
+    /**
+     * for convenience when displaying a fundraiser
+     * @return String that combines amountRaised and goal
+     */
     public String makeProgressString() {
         return "$" + amountRaised + " raised of " + "$" + goal + " goal";
     }
 
+    /**
+     * calculates number of days remaining in the fundraiser
+     * @return String to display
+     */
     public String makeDaysRemainingString() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         try {
@@ -73,6 +90,10 @@ public class Fundraiser implements Serializable{
         return null;
     }
 
+    /**
+     * check if fundraiser already ended
+     * @return boolean - true if fundraiser already ended, false if still ongoing
+     */
     public boolean isEnded() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         try {
@@ -85,14 +106,6 @@ public class Fundraiser implements Serializable{
             e.printStackTrace();
         }
         return false;
-    }
-
-    public void addItem(String itemID) {
-        itemIDs.add(itemID);
-    }
-
-    public ArrayList<String> getItemIDs() {
-        return itemIDs;
     }
 
 }

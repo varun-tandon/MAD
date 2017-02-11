@@ -25,6 +25,10 @@ import com.loopj.android.http.TextHttpResponseHandler;
 
 import cz.msebera.android.httpclient.Header;
 
+/**
+ * control logic for donating a direct contribution to a fundraiser
+ * @author Heidi
+ */
 public class DonateActivity extends AppCompatActivity {
 
     final static int REQUEST_CODE = 1;
@@ -45,10 +49,14 @@ public class DonateActivity extends AppCompatActivity {
         purpose.setText(getIntent().getStringExtra("purpose"));
         Button proceedButton = (Button) findViewById(R.id.donate_proceed_button);
 
+        // autofocus on amount field to expedite process
         donateAmountField = (EditText) findViewById(R.id.donate_amount_field);
         donateAmountField.requestFocus();
+
+        // make sure keyboard doesn't cover input field
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
+        // get client token when user is ready to pay
         proceedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +65,9 @@ public class DonateActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * requests client token from server in order to launch Paypal Braintree Drop-in UI for payment
+     */
     public void getBraintreeClientToken() {
         AsyncHttpClient client = new AsyncHttpClient();
         client.get("http://mad2017.hhsfbla.com/braintree/generateClientToken.php", new TextHttpResponseHandler() {
@@ -88,17 +99,28 @@ public class DonateActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * finishes payment process
+     * @param nonce - an arbitrary string for the server
+     */
     void postNonceToServer(String nonce) {
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
+
+        // get amount
         final int amount = Integer.parseInt(donateAmountField.getText().toString());
+
+        // send params to server
         params.put("payment_method_nonce", nonce);
         params.put("amount", amount);
+
+        // write to firebase
         client.post("http://mad2017.hhsfbla.com/braintree/checkout.php", params,
             new TextHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, String responseBody) {
                     Log.d("Donate", responseBody);
+
                     // Write to Firebase
                     DatabaseReference ref = FirebaseDatabase.getInstance()
                             .getReference("fundraisers/" + DonateActivity.this.getIntent().getStringExtra("fid"));
@@ -106,6 +128,7 @@ public class DonateActivity extends AppCompatActivity {
                             .getIntExtra("amountRaised", 0) + Integer.parseInt(donateAmountField
                             .getText().toString()));
 
+                    // launch dialog on success
                     DialogFragment dialog = new DonationSuccessDialog();
                     Bundle b = new Bundle();
                     b.putString("text", "$" + amount + " donated."

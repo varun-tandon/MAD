@@ -38,6 +38,9 @@ import static android.R.id.message;
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 import static com.hhsfbla.launch.R.id.imageView;
 
+/**
+ * Part 2 of 2 for fundraiser creation control logic
+ */
 public class FinishCreateFundraiserActivity extends AppCompatActivity {
 
     final static int SELECT_PHOTO = 1;
@@ -57,6 +60,7 @@ public class FinishCreateFundraiserActivity extends AppCompatActivity {
         storageRef = FirebaseStorage.getInstance().getReference();
         imagePreview = (ImageView) findViewById(R.id.imagePreview);
 
+        // camera intent for taking a picture of the item
         Button chooseImageButton = (Button) findViewById(R.id.chooseImageButton);
         chooseImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +76,7 @@ public class FinishCreateFundraiserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String description = ((TextView) findViewById(R.id.descriptionField)).getText().toString();
+                // basic form checking
                 if (description.equals("")) {
                     Toast.makeText(FinishCreateFundraiserActivity.this, "Description cannot be blank", Toast.LENGTH_SHORT).show();
                 }
@@ -86,6 +91,7 @@ public class FinishCreateFundraiserActivity extends AppCompatActivity {
 
                     newRef.setValue(fundraiser);
 
+                    // handle uploading image to firebase
                     StorageReference imageRef = storageRef.child("fundraisers/" + newRef.getKey() + ".jpg");
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     imageBitmap = ((BitmapDrawable)imagePreview.getDrawable()).getBitmap();
@@ -108,9 +114,6 @@ public class FinishCreateFundraiserActivity extends AppCompatActivity {
 
                     Toast.makeText(FinishCreateFundraiserActivity.this, "Fundraiser created", Toast.LENGTH_SHORT).show();
                   switchToSuccess(newRef.getKey());
-
-
-
                 }
             }
         });
@@ -120,6 +123,7 @@ public class FinishCreateFundraiserActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
         switch(requestCode) {
+            // select picture from gallery
             case SELECT_PHOTO:
                 if(resultCode == RESULT_OK){
                     try {
@@ -148,6 +152,10 @@ public class FinishCreateFundraiserActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * go to Success screen after successful fundraiser creation
+     * @param newRefKey
+     */
     private void switchToSuccess(String newRefKey){
         Intent switchToSuccess = new Intent(FinishCreateFundraiserActivity.this, FundraiserCreatedSuccessActivity.class);
         switchToSuccess.putExtra("extra", newRefKey);

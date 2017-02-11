@@ -9,7 +9,10 @@ import java.util.Date;
 import android.os.Bundle;
 import android.widget.DatePicker;
 
-public class DatePickerFragment extends DialogFragment{
+/**
+ * launches datepicker dialog with calendar ui
+ */
+public class DatePickerFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -19,6 +22,8 @@ public class DatePickerFragment extends DialogFragment{
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog dialog = new DatePickerDialog(getActivity(), (CreateFundraiserActivity)getActivity(), year, month, day);
+
+        // Ensure user cannot select a date before current day
         dialog.getDatePicker().setMinDate(new Date().getTime());
 
         // Create a new instance of DatePickerDialog and return it

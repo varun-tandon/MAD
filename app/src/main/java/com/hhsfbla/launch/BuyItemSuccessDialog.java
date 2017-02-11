@@ -10,6 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+/**
+ * dialog that displays after a user successfully buys an item
+ * @author Heidi
+ */
+
 public class BuyItemSuccessDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -26,6 +31,7 @@ public class BuyItemSuccessDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         Intent intent = new Intent(getActivity(), NavDrawerActivity.class);
+                        // go back to Browse Fundraisers
                         getActivity().startActivity(intent);
                     }
                 });
