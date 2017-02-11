@@ -20,15 +20,15 @@ import com.google.firebase.auth.FirebaseUser;
 import static android.content.ContentValues.TAG;
 
 /**
- * Created by Varun on 2/5/2017.
+ * A Dialog that is displayed when the user changes his or her password
  */
 
 public class PasswordChangeDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        // Get the layout inflater
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+
+        LayoutInflater inflater = getActivity().getLayoutInflater(); //gets the Layout Inflator
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
@@ -38,9 +38,12 @@ public class PasswordChangeDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
 
-                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //retrieves a reference to the current user
                         String newPassword = ((TextView)getParentFragment().getView().findViewById(R.id.change_password)).getText().toString();
 
+                        /**
+                         * Updates the password on Firebase
+                         */
                         user.updatePassword(newPassword)
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override

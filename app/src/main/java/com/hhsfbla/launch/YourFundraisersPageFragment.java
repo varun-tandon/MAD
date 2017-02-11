@@ -22,32 +22,40 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 
 /**
- * Created by zhenfangchen on 1/26/17.
+ * A page that hosts all the fundraisers that the user has created. Allows the user to click into
+ * each individual fundraiser
  */
 
 public class YourFundraisersPageFragment extends Fragment {
     private View yourFundraiserView;
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private RecyclerView mRecyclerView; //the container that holds all the individual fundraisers
+    private RecyclerView.Adapter mAdapter; //the adapter that creates the individual fundraiser views
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         yourFundraiserView = inflater.inflate(R.layout.fragment_your_fundraisers, container, false);
 
+        /**
+         * Initializes the container
+         */
         mRecyclerView = (RecyclerView) yourFundraiserView.findViewById(R.id.your_fundraisers_recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        final ArrayList<Fundraiser> fundraisers = new ArrayList<Fundraiser>();
 
-        final StorageReference storageRef = FirebaseStorage.getInstance().getReference("/fundraisers");
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("/fundraisers");
-        ref.addValueEventListener(new ValueEventListener() {
+        final ArrayList<Fundraiser> fundraisers = new ArrayList<Fundraiser>(); //stores all of the users fundraisers
+
+        final StorageReference storageRef = FirebaseStorage.getInstance().getReference("/fundraisers"); //retrieves a reference to the fundraiser images
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("/fundraisers"); //retrieves a reference to the fundraiser objects
+        ref.addValueEventListener(new ValueEventListener() { //updates whenever a change is made to a fundraiser
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 fundraisers.clear();
 
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    final Fundraiser f = child.getValue(Fundraiser.class);
-                    if (f.uid.equals(NavDrawerActivity.userID)) {
+                    final Fundraiser f = child.getValue(Fundraiser.class); //retrieves the Fundraiser
+                    if (f.uid.equals(NavDrawerActivity.userID)) { //if the current user is the creator of the Fundraiser
                         f.setId(child.getKey());
+                        /**
+                         * Retrieves the image of the fundraiser from FirebaseStorage and passes it into the fundraiser object
+                         */
                         storageRef.child(child.getKey() + ".jpg").getBytes(1024 * 1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                             @Override
                             public void onSuccess(byte[] bytes) {
@@ -55,6 +63,10 @@ public class YourFundraisersPageFragment extends Fragment {
                                 options.inSampleSize = 2;
                                 f.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options));
                                 fundraisers.add(f);
+
+                                /**
+                                 * Creates the container for the new fundraiser to be displayed in
+                                 */
                                 mAdapter = new FundraiserRecyclerViewAdapter(getActivity(), fundraisers);
                                 mRecyclerView.setAdapter(mAdapter);
                             }
