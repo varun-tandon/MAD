@@ -31,7 +31,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Date;
-
+/**
+ * The base Activity of the application. At first, hosts browsing fundraisers, and navigation is made
+ * possible by a navigation drawer. The drawer can slide out through the clicking of a button, and
+ * on the drawer are selections for different screens.
+ */
 public class NavDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
