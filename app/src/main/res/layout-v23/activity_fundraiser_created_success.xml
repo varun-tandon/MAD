@@ -16,7 +16,7 @@
         android:text="No thanks, I'll do this later"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button3"
+        android:id="@+id/do_action_later_postsuccess"
 
         android:layout_gravity="right|bottom"
 

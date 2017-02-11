@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -73,7 +74,6 @@ public class FundraiserCreatedSuccessActivity extends AppCompatActivity {
                         }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
-                        System.exit(0);
                     }
                 });
 
@@ -96,6 +96,17 @@ public class FundraiserCreatedSuccessActivity extends AppCompatActivity {
 
                 startActivity(launchSellPage); //sends the user to the creation of an item
                 finish();
+            }
+        });
+        /**
+         * Adds functionalty to go home if the user decides they do not want to act after creating a fundraiser
+         */
+        ((Button) findViewById(R.id.do_action_later_postsuccess)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent goHome = new Intent(FundraiserCreatedSuccessActivity.this, NavDrawerActivity.class);
+                startActivity(goHome);
             }
         });
 
