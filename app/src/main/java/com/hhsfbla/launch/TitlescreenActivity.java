@@ -32,6 +32,7 @@ import java.io.ObjectInputStream;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
+
 public class TitlescreenActivity extends AppCompatActivity {
 
     private View mContentView;
@@ -47,37 +48,38 @@ public class TitlescreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.splash_screen_view);
 
-            setContentView(R.layout.activity_titlescreen);
-            Window window = this.getWindow();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                window.setStatusBarColor(Color.rgb(40, 61, 72));
-            }
-            hide();
-            mVisible = true;
-
-            final Button signupButton = (Button) findViewById(R.id.titlescreen_signup_btn);
-            signupButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    Intent signupIntent = new Intent(TitlescreenActivity.this, SignUpActivity.class);
-                    TitlescreenActivity.this.startActivity(signupIntent);
-                }
-            });
-
-            final Button loginButton = (Button) findViewById(R.id.titlescreen_login_btn);
-            loginButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    Intent loginIntent = new Intent(TitlescreenActivity.this, LoginActivity.class);
-                    TitlescreenActivity.this.startActivity(loginIntent);
-                }
-            });
+        setContentView(R.layout.activity_titlescreen);
+        Window window = this.getWindow();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(Color.rgb(40, 61, 72));
         }
+        hide();
+        mVisible = true;
+
+        final Button signupButton = (Button) findViewById(R.id.titlescreen_signup_btn);
+        signupButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent signupIntent = new Intent(TitlescreenActivity.this, SignUpActivity.class);
+                TitlescreenActivity.this.startActivity(signupIntent);
+            }
+        });
+
+        final Button loginButton = (Button) findViewById(R.id.titlescreen_login_btn);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent loginIntent = new Intent(TitlescreenActivity.this, LoginActivity.class);
+                TitlescreenActivity.this.startActivity(loginIntent);
+            }
+        });
+    }
 
     private void hide() {
-        // Hide UI first
+        /**
+         * Hides the user interface
+         */
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
+        if (actionBar != null) { //checks to make sure the bar is not null; otherwise, calling .hide() would return an error
             actionBar.hide();
         }
         mVisible = false;
